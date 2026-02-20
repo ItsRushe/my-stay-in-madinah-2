@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Stay in Madinah — Guaranteed Lowest Rates</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white:   #ffffff;
+    --off:     #f8f6f2;
+    --stone:   #e8e2d8;
+    --warm:    #c4b8a4;
+    --mid:     #7a6e60;
+    --deep:    #2a2219;
+    --ink:     #1a140d;
+    --gold:    #b8960c;
+    --gold-lt: #d4ae2a;
+    --green:   #2d4a3e;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  .cursor {
+    position: fixed; width: 10px; height: 10px;
+    background: var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: width 0.2s, height 0.2s;
+  }
+  .cursor-ring {
+    position: fixed; width: 36px; height: 36px;
+    border: 1px solid var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: all 0.12s ease;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.8rem 5rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--stone);
+  }
+  .logo-wrap { display: flex; flex-direction: column; gap: 1px; }
+  .logo-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; font-weight: 400; letter-spacing: 0.04em;
+    color: var(--ink);
+  }
+  .logo-sub {
+    font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); font-weight: 300;
+  }
+  .nav-center { display: flex; gap: 3rem; }
+  .nav-center a {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--mid); text-decoration: none; font-weight: 300;
+    transition: color 0.3s; position: relative; padding-bottom: 2px;
+  }
+  .nav-center a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+    background: var(--gold); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .nav-center a:hover { color: var(--ink); }
+  .nav-center a:hover::after { transform: scaleX(1); }
+  .nav-book {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none; font-weight: 400;
+    border: 1px solid var(--ink); padding: 0.65rem 1.6rem;
+    transition: all 0.3s;
+  }
+  .nav-book:hover { background: var(--ink); color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 5rem;
+    position: relative; overflow: hidden;
+    background: var(--white);
+  }
+  .hero-bg-text {
+    position: absolute; right: -2rem; top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(10rem, 18vw, 22rem);
+    font-weight: 300; font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--stone);
+    line-height: 1; pointer-events: none;
+    white-space: nowrap;
+    animation: driftIn 1.4s ease forwards; opacity: 0;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); font-weight: 400; margin-bottom: 2rem;
+    animation: fadeUp 0.8s 0.2s ease forwards; opacity: 0;
+  }
+  .hero-eyebrow::before { content: ''; width: 50px; height: 1px; background: var(--gold); }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 6vw, 6.5rem);
+    font-weight: 300; line-height: 1.08;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.9s 0.35s ease forwards; opacity: 0;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-desc {
+    font-size: 1rem; color: var(--mid); line-height: 1.75;
+    font-weight: 300; max-width: 520px; margin-bottom: 3.5rem;
+    animation: fadeUp 0.9s 0.5s ease forwards; opacity: 0;
+  }
+  .hero-actions {
+    display: flex; gap: 1.2rem; align-items: center;
+    animation: fadeUp 0.9s 0.65s ease forwards; opacity: 0;
+  }
+  .btn-dark {
+    background: var(--ink); color: var(--white);
+    padding: 1.1rem 2.8rem; border: none;
+    font-family: 'Jost', sans-serif; font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400;
+    cursor: none; transition: background 0.3s;
+  }
+  .btn-dark:hover { background: var(--green); }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    padding: 1.1rem 2.4rem; border: 1px solid var(--warm);
+    font-family: 'Jost', sans-serif; font-size: 0.75rem;
+    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300;
+    cursor: none; transition: border-color 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  .guarantee-badge {
+    position: absolute; right: 5rem; bottom: 6rem;
+    width: 130px; height: 130px;
+    border: 1px solid var(--stone); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    animation: spin 18s linear infinite; z-index: 2;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .badge-inner {
+    animation: spin 18s linear infinite reverse;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    text-align: center;
+  }
+  .badge-icon { font-size: 1.4rem; }
+  .badge-text { font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); line-height: 1.4; font-weight: 300; }
+  .badge-main { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--gold); font-weight: 400; }
+
+  /* PROMISE STRIP */
+  .promise-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);
+  }
+  .promise {
+    padding: 2.5rem 2.5rem; border-right: 1px solid var(--stone);
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    transition: background 0.3s;
+  }
+  .promise:last-child { border-right: none; }
+  .promise:hover { background: var(--off); }
+  .promise-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+  .promise-title { font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.3rem; }
+  .promise-desc { font-size: 0.77rem; color: var(--mid); line-height: 1.6; font-weight: 300; }
+
+  /* SECTIONS */
+  section { padding: 7rem 5rem; }
+  .sec-label {
+    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--gold); font-weight: 400; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .sec-label::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.2;
+  }
+
+  /* WHY */
+  .why { background: var(--ink); color: var(--white); }
+  .why .sec-title { color: var(--white); }
+  .why-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 6rem; align-items: start; margin-top: 4rem; }
+  .why-left { position: sticky; top: 6rem; }
+  .why-statement {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 2vw, 1.8rem); font-weight: 300; line-height: 1.4;
+    color: var(--stone); margin-top: 2rem; font-style: italic;
+  }
+  .why-statement strong { color: var(--gold-lt); font-style: normal; font-weight: 400; }
+  .why-items { display: flex; flex-direction: column; }
+  .why-item {
+    display: flex; gap: 2rem; align-items: flex-start;
+    padding: 2.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: padding-left 0.3s;
+  }
+  .why-item:hover { padding-left: 0.5rem; }
+  .why-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 300; color: rgba(255,255,255,0.08);
+    line-height: 1; flex-shrink: 0; width: 60px; transition: color 0.3s;
+  }
+  .why-item:hover .why-num { color: var(--gold); }
+  .why-item-title { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.6rem; }
+  .why-item-desc { font-size: 0.88rem; color: rgba(255,255,255,0.42); line-height: 1.7; font-weight: 300; }
+
+  /* ROOMS */
+  .rooms-section { background: var(--off); padding: 7rem 0; }
+  .rooms-header { padding: 0 5rem; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: flex-end; }
+  .view-all { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--stone); padding-bottom: 2px; transition: color 0.3s; }
+  .view-all:hover { color: var(--ink); }
+  .rooms-scroll-wrap { overflow-x: auto; padding: 0 5rem 2rem; scrollbar-width: none; }
+  .rooms-scroll-wrap::-webkit-scrollbar { display: none; }
+  .rooms-scroll { display: flex; gap: 1.5rem; width: max-content; }
+  .room-card {
+    width: 330px; background: var(--white); flex-shrink: 0;
+    overflow: hidden; transition: transform 0.4s, box-shadow 0.4s; cursor: none;
+  }
+  .room-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .room-img { height: 210px; position: relative; overflow: hidden; }
+  .room-img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.6s; }
+  .room-card:hover .room-img-bg { transform: scale(1.05); }
+  .room-tag {
+    position: absolute; top: 1rem; left: 1rem;
+    background: var(--gold); color: var(--ink);
+    padding: 0.28rem 0.85rem; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+  }
+  .room-body { padding: 1.8rem; }
+  .room-type { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+  .room-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 0.9rem; }
+  .room-features { display: flex; gap: 1rem; font-size: 0.73rem; color: var(--mid); margin-bottom: 1.4rem; font-weight: 300; }
+  .room-footer { display: flex; justify-content: space-between; align-items: flex-end; padding-top: 1.2rem; border-top: 1px solid var(--stone); }
+  .room-airbnb { font-size: 0.65rem; color: var(--warm); text-transform: uppercase; letter-spacing: 0.08em; text-decoration: line-through; }
+  .room-price { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 300; }
+  .room-price sup { font-size: 0.75rem; font-family: 'Jost'; vertical-align: super; }
+  .room-saving { background: var(--green); color: white; font-size: 0.6rem; padding: 0.3rem 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .rb1 { background: linear-gradient(160deg, #e8dfd0, #c4b8a4, #9a8e80); }
+  .rb2 { background: linear-gradient(160deg, #d4e8e4, #a4c4bc, #6a9e98); }
+  .rb3 { background: linear-gradient(160deg, #e8e4d0, #c8c0a0, #a09878); }
+  .rb4 { background: linear-gradient(160deg, #dde8d4, #b4c8a4, #8aa880); }
+
+  /* COMPARE */
+  .compare { background: var(--white); }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 4rem; }
+  .compare-table { border: 1px solid var(--stone); }
+  .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid var(--stone); }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-cell { padding: 1.1rem 1.4rem; font-size: 0.82rem; display: flex; align-items: center; border-right: 1px solid var(--stone); }
+  .compare-cell:last-child { border-right: none; }
+  .compare-header { background: var(--ink); }
+  .compare-header .compare-cell { color: rgba(255,255,255,0.6); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 300; }
+  .compare-header .ours { color: var(--gold); }
+  .price-ours { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--green); }
+  .price-airbnb { text-decoration: line-through; color: var(--warm); }
+  .compare-statement { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 2.2vw, 2.2rem); font-weight: 300; line-height: 1.35; margin-bottom: 1.5rem; font-style: italic; }
+  .compare-statement strong { font-style: normal; color: var(--green); font-weight: 400; }
+  .compare-note { font-size: 0.85rem; color: var(--mid); line-height: 1.7; font-weight: 300; }
+  .promise-box { margin-top: 2rem; padding: 1.5rem; background: var(--off); border-left: 3px solid var(--gold); }
+  .promise-box-label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+  .promise-box-text { font-size: 0.83rem; color: var(--mid); font-weight: 300; line-height: 1.6; }
+
+  /* LOCATION */
+  .location { background: var(--deep); color: var(--white); }
+  .location .sec-title { color: var(--white); }
+  .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 4rem; align-items: center; }
+  .location-desc { font-size: 0.9rem; color: rgba(255,255,255,0.48); line-height: 1.8; font-weight: 300; margin: 1.5rem 0 2rem; }
+  .spot { display: flex; align-items: center; gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.85rem; color: rgba(255,255,255,0.5); font-weight: 300; transition: color 0.3s; }
+  .spot:hover { color: var(--white); }
+  .spot-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .spot-dist { margin-left: auto; font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; }
+  .map-box { height: 380px; background: linear-gradient(135deg, #1a2e26, #2d4a3e, #3d6050); position: relative; overflow: hidden; border-radius: 2px; display: flex; align-items: center; justify-content: center; }
+  .map-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 40px 40px; }
+  .map-pin-center { width: 16px; height: 16px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 0 6px rgba(184,150,12,0.25), 0 0 0 14px rgba(184,150,12,0.1); animation: pulse 2.5s infinite; }
+  .map-label { position: absolute; top: 1.2rem; left: 1.2rem; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 6px rgba(184,150,12,0.25), 0 0 0 14px rgba(184,150,12,0.1); }
+    50% { box-shadow: 0 0 0 10px rgba(184,150,12,0.15), 0 0 0 22px rgba(184,150,12,0.05); }
+  }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--off); }
+  .test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
+  .test-card { background: var(--white); padding: 2.5rem; border: 1px solid var(--stone); transition: border-color 0.3s, box-shadow 0.3s; }
+  .test-card:hover { border-color: var(--gold); box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+  .test-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.2em; margin-bottom: 1.2rem; }
+  .test-quote { font-family: 'Playfair Display', serif; font-size: 0.98rem; font-weight: 300; line-height: 1.65; font-style: italic; margin-bottom: 1.5rem; }
+  .test-author { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); }
+  .test-country { color: var(--gold); }
+
+  /* CTA */
+  .cta-section { background: var(--ink); padding: 8rem 5rem; text-align: center; position: relative; overflow: hidden; }
+  .cta-bg-word { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Playfair Display', serif; font-size: 30vw; font-weight: 300; font-style: italic; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.025); white-space: nowrap; pointer-events: none; line-height: 1; }
+  .cta-label { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .cta-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+  .cta-title em { font-style: italic; color: var(--gold); }
+  .cta-sub { font-size: 0.9rem; color: rgba(255,255,255,0.42); margin-bottom: 3rem; font-weight: 300; position: relative; z-index: 1; }
+  .cta-actions { display: flex; justify-content: center; gap: 1rem; position: relative; z-index: 1; }
+  .btn-gold { background: var(--gold); color: var(--ink); padding: 1.1rem 3rem; border: none; font-family: 'Jost'; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; cursor: none; transition: background 0.3s; }
+  .btn-gold:hover { background: var(--gold-lt); }
+  .btn-white-outline { background: transparent; color: var(--white); padding: 1.1rem 2.4rem; border: 1px solid rgba(255,255,255,0.2); font-family: 'Jost'; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; cursor: none; transition: border-color 0.3s; }
+  .btn-white-outline:hover { border-color: var(--white); }
+
+  /* FOOTER */
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 4rem 5rem 2.5rem; }
+  .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 2rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--white); margin-bottom: 0.8rem; display: block; }
+  .footer-logo span { color: var(--gold); }
+  .footer-tagline { font-size: 0.8rem; color: rgba(255,255,255,0.3); line-height: 1.7; font-weight: 300; max-width: 260px; }
+  .footer-col-title { font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.25s; font-weight: 300; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: rgba(255,255,255,0.2); font-weight: 300; }
+  .arabic-footer { font-size: 0.95rem; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes driftIn {
+    from { opacity: 0; transform: translateY(-50%) translateX(40px); }
+    to { opacity: 1; transform: translateY(-50%) translateX(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo-wrap">
+    <span class="logo-main">My Stay in Madinah</span>
+    <span class="logo-sub">Guaranteed Lowest Rates</span>
+  </div>
+  <div class="nav-center">
+    <a href="#">Location</a>
+    <a href="#">About</a>
+  </div>
+  <a href="#" class="nav-book">Book Direct</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">Madinah</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Heart of the Holy City</div>
+    <h1 class="hero-title">
+      Stay More.<br>Pay <em>Less.</em><br>Guaranteed.
+    </h1>
+    <p class="hero-desc">
+      Premium rooms in the heart of Madinah — at rates guaranteed to beat every Airbnb listing nearby. Book direct with us and keep what you'd have paid in fees.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-dark">View Our Rooms</button>
+      <button class="btn-ghost">See Rate Comparison</button>
+    </div>
+  </div>
+  <div class="guarantee-badge">
+    <div class="badge-inner">
+      <div class="badge-icon">✦</div>
+      <div class="badge-main">Guaranteed</div>
+      <div class="badge-text">Lowest Rate<br>Promise</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE STRIP -->
+<div class="promise-strip">
+  <div class="promise">
+    <div class="promise-icon">🔒</div>
+    <div>
+      <div class="promise-title">Rate Guaranteed</div>
+      <div class="promise-desc">We guarantee to beat any comparable Airbnb listing in the area — no exceptions.</div>
+    </div>
+  </div>
+  <div class="promise">
+    <div class="promise-icon">🕌</div>
+    <div>
+      <div class="promise-title">Heart of Madinah</div>
+      <div class="promise-desc">Steps from Al-Masjid an-Nabawi. The most sought-after location in the city.</div>
+    </div>
+  </div>
+  <div class="promise">
+    <div class="promise-icon">✦</div>
+    <div>
+      <div class="promise-title">Verified Quality</div>
+      <div class="promise-desc">Every room personally inspected and maintained to our exacting standard.</div>
+    </div>
+  </div>
+  <div class="promise">
+    <div class="promise-icon">🤝</div>
+    <div>
+      <div class="promise-title">Book Direct & Save</div>
+      <div class="promise-desc">No platform fees. No hidden charges. What you see is exactly what you pay.</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="why">
+  <div class="sec-label">Why Book With Us</div>
+  <h2 class="sec-title">The Smarter Way<br>to Stay in Madinah</h2>
+  <div class="why-grid">
+    <div class="why-left">
+      <p class="why-statement">
+        Every night on Airbnb, you're paying <strong>platform fees.</strong> With us, that money stays in your pocket — and we put it toward a better stay.
+      </p>
+    </div>
+    <div class="why-items">
+      <div class="why-item">
+        <div class="why-num">01</div>
+        <div>
+          <div class="why-item-title">Guaranteed Lower Rates</div>
+          <div class="why-item-desc">We price every room below the equivalent Airbnb listing. Show us a cheaper verified rate and we'll match it — guaranteed in writing before you pay a single riyal.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">02</div>
+        <div>
+          <div class="why-item-title">No Hidden Fees</div>
+          <div class="why-item-desc">Airbnb adds service fees of up to 14% at checkout. What you see on our site is what you pay — fully inclusive, no surprises at the end.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">03</div>
+        <div>
+          <div class="why-item-title">Premium Central Location</div>
+          <div class="why-item-desc">Our properties sit within walking distance of Al-Masjid an-Nabawi. You won't find this combination of proximity and price on any major platform.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">04</div>
+        <div>
+          <div class="why-item-title">Ensured & Inspected</div>
+          <div class="why-item-desc">Unlike Airbnb listings that vary wildly in quality, every room we offer is personally vetted, prepared and maintained to the same high standard — every stay.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- LOCATION -->
+<section class="location">
+  <div class="sec-label">Our Location</div>
+  <div class="location-grid">
+    <div>
+      <h2 class="sec-title">In the<br>Heart of it All</h2>
+      <p class="location-desc">Situated in the central district of Madinah — within walking distance of Al-Masjid an-Nabawi, key landmarks, restaurants and transport links.</p>
+      <div>
+        <div class="spot"><div class="spot-dot"></div> Al-Masjid an-Nabawi <span class="spot-dist">5 min walk</span></div>
+        <div class="spot"><div class="spot-dot"></div> Haram Bus Station <span class="spot-dist">3 min walk</span></div>
+        <div class="spot"><div class="spot-dot"></div> Quba Mosque <span class="spot-dist">15 min drive</span></div>
+        <div class="spot"><div class="spot-dot"></div> Prince Mohammad Bin Abdulaziz Airport <span class="spot-dist">20 min drive</span></div>
+        <div class="spot"><div class="spot-dot"></div> Al Noor Mall <span class="spot-dist">8 min walk</span></div>
+        <div class="spot"><div class="spot-dot"></div> Local Restaurants & Al Baik <span class="spot-dist">2 min walk</span></div>
+      </div>
+    </div>
+    <div class="map-box">
+      <div class="map-lines"></div>
+      <div class="map-pin-center"></div>
+      <div class="map-label">Central Madinah — Al Haram District</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="sec-label">Guest Reviews</div>
+  <h2 class="sec-title">Trusted by Pilgrims<br>Across the World</h2>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"I checked every listing on Airbnb before booking. My Stay in Madinah was genuinely cheaper — by nearly SAR 200 a night. The room was spotless and the location was perfect."</p>
+      <div class="test-author">Ahmed K. — <span class="test-country">Egypt</span></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"The guarantee is real. They showed me the comparison themselves before I paid anything. Completely honest, beautifully clean, and right next to the mosque."</p>
+      <div class="test-author">Fatima R. — <span class="test-country">United Kingdom</span></div>
+    </div>
+    <div class="test-card">
+      <div class="test-stars">★★★★★</div>
+      <p class="test-quote">"As a family of five we needed space and value. The suite was immaculate and we saved over SAR 1,400 across our seven-night stay. Will book again next Umrah."</p>
+      <div class="test-author">Hassan M. — <span class="test-country">Pakistan</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg-word">Stay</div>
+  <div class="cta-label">Book Direct &amp; Save</div>
+  <h2 class="cta-title">Your Best Stay in<br><em>Madinah</em> Awaits</h2>
+  <p class="cta-sub">Guaranteed lower than Airbnb. No fees. No compromise.</p>
+  <div class="cta-actions">
+    <button class="btn-gold">Book Your Room</button>
+    <button class="btn-white-outline">WhatsApp Us</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <span class="footer-logo">My Stay in <span>Madinah</span></span>
+      <p class="footer-tagline">Premium rooms in the heart of Al Madinah Al Munawwarah — guaranteed to beat every Airbnb price in the area.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Rooms</div>
+      <ul class="footer-links">
+        <li><a href="#">Standard Rooms</a></li>
+        <li><a href="#">Deluxe Rooms</a></li>
+        <li><a href="#">Family Suites</a></li>
+        <li><a href="#">Premium Suites</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Information</div>
+      <ul class="footer-links">
+        <li><a href="#">Rate Guarantee</a></li>
+        <li><a href="#">Our Location</a></li>
+        <li><a href="#">Check-in Guide</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="#">WhatsApp Us</a></li>
+        <li><a href="#">Email</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Book Direct</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2025 My Stay in Madinah. All rights reserved.</div>
+    <div class="arabic-footer">المدينة المنورة — أفضل الأسعار مضمونة</div>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 60);
+  });
+</script>
+</body>
+</html>
