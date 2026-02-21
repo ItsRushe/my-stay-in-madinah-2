@@ -340,6 +340,9 @@
     to { opacity: 1; transform: translateY(-50%) translateX(0); }
   }
 </style>
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" onload="initMap()"></script>
 </head>
 <body>
 
@@ -468,21 +471,120 @@
   <div class="sec-label">Our Location</div>
   <div class="location-grid">
     <div>
-      <h2 class="sec-title">In the<br>Heart of it All</h2>
-      <p class="location-desc">Situated in the central district of Madinah — within walking distance of Al-Masjid an-Nabawi, key landmarks, restaurants and transport links.</p>
+      <h2 class="sec-title">Close to the<br>Heart of Madinah</h2>
+      <p class="location-desc">Our first property is situated at <strong style="color:var(--gold-lt);">24&#xb0;28&#x2019;02.9&#x22;N 39&#xb0;33&#x2019;51.6&#x22;E, Al-Aziziyyah, Madinah</strong> &#x2014; a short drive or 20-minute walk west of Al-Masjid an-Nabawi, in a peaceful residential neighbourhood with easy shuttle access to the Haram.</p>
       <div>
-        <div class="spot"><div class="spot-dot"></div> Al-Masjid an-Nabawi <span class="spot-dist">5 min walk</span></div>
-        <div class="spot"><div class="spot-dot"></div> Haram Bus Station <span class="spot-dist">3 min walk</span></div>
-        <div class="spot"><div class="spot-dot"></div> Quba Mosque <span class="spot-dist">15 min drive</span></div>
-        <div class="spot"><div class="spot-dot"></div> Prince Mohammad Bin Abdulaziz Airport <span class="spot-dist">20 min drive</span></div>
-        <div class="spot"><div class="spot-dot"></div> Al Noor Mall <span class="spot-dist">8 min walk</span></div>
-        <div class="spot"><div class="spot-dot"></div> Local Restaurants & Al Baik <span class="spot-dist">2 min walk</span></div>
+        <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;margin-top:0.5rem;">Mosques &amp; Sacred Sites</div>
+        <div class="spot"><div class="spot-dot"></div> Al-Masjid an-Nabawi (Prophet&#x2019;s Mosque) <span class="spot-dist">20 min walk / 8 min drive</span></div>
+        <div class="spot"><div class="spot-dot"></div> The Green Dome &#x2014; Rawdah al-Sharif <span class="spot-dist">22 min walk / 9 min drive</span></div>
+        <div class="spot"><div class="spot-dot"></div> Masjid al-Ghamamah <span class="spot-dist">18 min walk</span></div>
+        <div class="spot"><div class="spot-dot"></div> Jannat al-Baqi Cemetery <span class="spot-dist">10 min drive</span></div>
+        <div class="spot"><div class="spot-dot"></div> Masjid Quba (first mosque in Islam) <span class="spot-dist">15 min drive</span></div>
+        <div class="spot"><div class="spot-dot"></div> Mount Uhud &amp; Martyrs&#x2019; Graves <span class="spot-dist">20 min drive</span></div>
+        <div class="spot"><div class="spot-dot"></div> Masjid Al-Qiblatayn <span class="spot-dist">18 min drive</span></div>
+        <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;margin-top:1.4rem;">Transport &amp; Amenities</div>
+        <div class="spot"><div class="spot-dot"></div> Haram Shuttle Bus (to Mosque) <span class="spot-dist">3 min walk</span></div>
+        <div class="spot"><div class="spot-dot"></div> Local Restaurants &amp; Supermarkets <span class="spot-dist">2 min walk</span></div>
+        <div class="spot"><div class="spot-dot"></div> Al-Haramain High-Speed Train Station <span class="spot-dist">20 min drive</span></div>
+        <div class="spot"><div class="spot-dot"></div> Prince Mohammad Bin Abdulaziz Airport <span class="spot-dist">25 min drive</span></div>
       </div>
     </div>
-    <div class="map-box">
-      <div class="map-lines"></div>
-      <div class="map-pin-center"></div>
-      <div class="map-label">Central Madinah — Al Haram District</div>
+
+    <!-- LEAFLET MAP -->
+    <div style="position:relative;height:500px;border-radius:2px;overflow:hidden;">
+      <div id="property-map" style="width:100%;height:100%;"></div>
+
+      <!-- Custom pin label -->
+      <div id="map-label-badge" style="position:absolute;bottom:3.5rem;left:50%;transform:translateX(-50%);background:#b8960c;color:#1a140d;font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.35rem 1rem;border-radius:2px;white-space:nowrap;z-index:1000;pointer-events:none;">My Stay in Madinah</div>
+
+      <!-- Open in maps -->
+      <a href="https://maps.google.com/?q=24.467472,39.564333" target="_blank"
+         style="position:absolute;bottom:1rem;right:1rem;z-index:1000;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);background:rgba(26,20,13,0.85);padding:0.4rem 0.9rem;border:1px solid rgba(184,150,12,0.3);text-decoration:none;font-family:'Jost',sans-serif;backdrop-filter:blur(8px);">
+        Open in Google Maps &#x2197;
+      </a>
+
+      <!-- Coord label -->
+      <div style="position:absolute;bottom:1rem;left:1rem;z-index:1000;font-size:0.58rem;color:rgba(255,255,255,0.5);font-family:'Jost',sans-serif;background:rgba(26,20,13,0.7);padding:0.35rem 0.8rem;backdrop-filter:blur(8px);">
+        24&#xb0;28&#x2032;02.9&#x22;N &nbsp; 39&#xb0;33&#x2032;51.6&#x22;E
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMING SOON -->
+<section style="background:var(--off);padding:7rem 5rem;">
+  <div class="sec-label">More Properties</div>
+  <h2 class="sec-title">More Rooms.<br>Coming Soon.</h2>
+  <p style="font-size:0.92rem;color:var(--mid);line-height:1.75;font-weight:300;max-width:540px;margin:1.5rem 0 4rem;">We're expanding. Additional rooms and properties across Madinah are in preparation — all held to the same standard, all guaranteed to beat Airbnb rates.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+    <div style="background:var(--white);border:1px solid var(--stone);padding:2.5rem;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:1.2rem;right:1.2rem;background:var(--ink);color:var(--gold);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.28rem 0.8rem;">Coming Soon</div>
+      <div style="font-size:1.8rem;margin-bottom:1.2rem;">🛏</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin-bottom:0.6rem;">Standard Rooms</div>
+      <div style="font-size:0.82rem;color:var(--mid);line-height:1.65;font-weight:300;">Comfortable, clean and centrally located — ideal for solo travellers and couples on Umrah or Ziyarah.</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--stone);padding:2.5rem;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:1.2rem;right:1.2rem;background:var(--ink);color:var(--gold);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.28rem 0.8rem;">Coming Soon</div>
+      <div style="font-size:1.8rem;margin-bottom:1.2rem;">👨‍👩‍👧</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin-bottom:0.6rem;">Family Suites</div>
+      <div style="font-size:0.82rem;color:var(--mid);line-height:1.65;font-weight:300;">Spacious multi-room suites designed for families — with everything you need for an extended stay in the holy city.</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--stone);padding:2.5rem;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:1.2rem;right:1.2rem;background:var(--ink);color:var(--gold);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.28rem 0.8rem;">Coming Soon</div>
+      <div style="font-size:1.8rem;margin-bottom:1.2rem;">✦</div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin-bottom:0.6rem;">Premium Suites</div>
+      <div style="font-size:0.82rem;color:var(--mid);line-height:1.65;font-weight:300;">Elevated finishes, superior views and priority service — for guests who want the very best at the lowest guaranteed price.</div>
+    </div>
+  </div>
+  <div style="margin-top:3rem;padding:1.8rem 2rem;background:var(--white);border:1px solid var(--stone);border-left:3px solid var(--gold);display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">Be the first to know</div>
+      <div style="font-size:0.88rem;color:var(--mid);font-weight:300;">Register your interest and we'll notify you as soon as new rooms become available.</div>
+    </div>
+    <button class="btn-dark" style="white-space:nowrap;">WhatsApp to Register</button>
+  </div>
+</section>
+
+<!-- TOURS COMING SOON -->
+<section style="background:var(--ink);padding:7rem 5rem;color:var(--white);position:relative;overflow:hidden;">
+  <div style="position:absolute;top:50%;right:-5rem;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:22rem;font-weight:300;font-style:italic;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.03);pointer-events:none;line-height:1;white-space:nowrap;">Tours</div>
+  <div style="position:relative;z-index:1;">
+    <div class="sec-label">Coming Soon</div>
+    <h2 class="sec-title" style="color:var(--white);">Guided Tours of<br><em style="font-style:italic;color:var(--gold);">Sacred Madinah</em></h2>
+    <p style="font-size:0.92rem;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;max-width:560px;margin:1.5rem 0 4rem;">We are working with local scholars and guides to offer our guests intimate, meaningful tours of Madinah's most sacred and historic sites — exclusively for My Stay in Madinah guests.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem;">
+
+      <div style="border:1px solid rgba(255,255,255,0.08);padding:2.5rem;position:relative;transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(184,150,12,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <div style="position:absolute;top:1.2rem;right:1.2rem;border:1px solid rgba(184,150,12,0.4);color:var(--gold);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 0.7rem;">Coming Soon</div>
+        <div style="font-size:1.8rem;margin-bottom:1.2rem;">🕌</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:0.6rem;color:var(--white);">Masjid an-Nabawi Tour</div>
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">A guided walk through the Prophet's Mosque, the Rawdah al-Sharif, and the Green Dome — with historical and spiritual context.</div>
+        <div style="margin-top:1.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Est. 2–3 hours · On foot</div>
+      </div>
+
+      <div style="border:1px solid rgba(255,255,255,0.08);padding:2.5rem;position:relative;transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(184,150,12,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <div style="position:absolute;top:1.2rem;right:1.2rem;border:1px solid rgba(184,150,12,0.4);color:var(--gold);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 0.7rem;">Coming Soon</div>
+        <div style="font-size:1.8rem;margin-bottom:1.2rem;">⛰️</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:0.6rem;color:var(--white);">Battle of Uhud & Mount Uhud</div>
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">Visit the site of one of Islam's most significant battles, the graves of the martyrs, and the resting place of Sayyiduna Hamza (RA).</div>
+        <div style="margin-top:1.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Est. 3 hours · Minibus</div>
+      </div>
+
+      <div style="border:1px solid rgba(255,255,255,0.08);padding:2.5rem;position:relative;transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(184,150,12,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <div style="position:absolute;top:1.2rem;right:1.2rem;border:1px solid rgba(184,150,12,0.4);color:var(--gold);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 0.7rem;">Coming Soon</div>
+        <div style="font-size:1.8rem;margin-bottom:1.2rem;">🌙</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:0.6rem;color:var(--white);">Full Ziyarah Day Tour</div>
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">A comprehensive day visiting Quba Mosque, Masjid al-Qiblatayn, the Seven Mosques, Bir Uthman well, and Jannat al-Baqi.</div>
+        <div style="margin-top:1.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Est. Full day · Private car</div>
+      </div>
+
+    </div>
+    <div style="padding:2rem;border:1px solid rgba(184,150,12,0.2);display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;background:rgba(184,150,12,0.04);">
+      <div>
+        <div style="font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">Register Your Interest</div>
+        <div style="font-size:0.88rem;color:rgba(255,255,255,0.4);font-weight:300;">Tours will be available exclusively to our guests. WhatsApp us to be notified when bookings open.</div>
+      </div>
+      <button class="btn-gold" style="white-space:nowrap;">WhatsApp to Register</button>
     </div>
   </div>
 </section>
@@ -574,6 +676,65 @@
       ring.style.top = e.clientY + 'px';
     }, 60);
   });
+</script>
+
+<script>
+function initMap() {
+  var LAT = 24.467472;
+  var LNG = 39.564333;
+
+  var map = L.map('property-map', {
+    center: [LAT, LNG],
+    zoom: 15,
+    zoomControl: true,
+    scrollWheelZoom: false
+  });
+
+  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+    maxZoom: 20,
+    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  var propIcon = L.divIcon({
+    className: '',
+    html: '<div style="width:18px;height:18px;background:#b8960c;border-radius:50%;border:3px solid #e8c97a;box-shadow:0 0 0 6px rgba(184,150,12,0.25),0 0 0 14px rgba(184,150,12,0.1);"></div>',
+    iconSize: [18, 18],
+    iconAnchor: [9, 9]
+  });
+
+  var mosqueIcon = L.divIcon({
+    className: '',
+    html: '<div style="width:13px;height:13px;background:#3a8e4a;border-radius:50%;border:2px solid #5aba6a;box-shadow:0 0 0 4px rgba(58,142,74,0.2);"></div>',
+    iconSize: [13, 13],
+    iconAnchor: [6, 6]
+  });
+
+  L.marker([LAT, LNG], {icon: propIcon})
+    .addTo(map)
+    .bindPopup("<strong style='font-family:serif;font-size:1rem;'>My Stay in Madinah</strong><br><span style='font-size:0.75rem;color:#888;'>Your property &mdash; Al-Aziziyyah</span>")
+    .openPopup();
+
+  L.marker([24.467035, 39.610947], {icon: mosqueIcon})
+    .addTo(map)
+    .bindPopup("<strong style='font-family:serif;'>Al-Masjid an-Nabawi</strong><br><span style='font-size:0.75rem;color:#888;'>Prophet's Mosque &mdash; ~4.5km east</span>");
+
+  L.marker([24.440099, 39.616734], {icon: mosqueIcon})
+    .addTo(map)
+    .bindPopup("<strong style='font-family:serif;'>Masjid Quba</strong><br><span style='font-size:0.75rem;color:#888;'>First mosque in Islam</span>");
+
+  L.marker([24.464722, 39.614444], {icon: mosqueIcon})
+    .addTo(map)
+    .bindPopup("<strong style='font-family:serif;'>Jannat al-Baqi</strong><br><span style='font-size:0.75rem;color:#888;'>Historic Islamic cemetery</span>");
+
+  L.marker([24.468333, 39.607222], {icon: mosqueIcon})
+    .addTo(map)
+    .bindPopup("<strong style='font-family:serif;'>Masjid al-Ghamamah</strong><br><span style='font-size:0.75rem;color:#888;'>~3.8km east</span>");
+
+  L.polyline(
+    [[LAT, LNG], [24.467035, 39.610947]],
+    { color: '#b8960c', weight: 1.5, dashArray: '6,5', opacity: 0.55 }
+  ).addTo(map);
+}
 </script>
 </body>
 </html>
