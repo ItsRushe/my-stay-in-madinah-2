@@ -1,740 +1,417 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Stay in Madinah — Guaranteed Lowest Rates</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --white:   #ffffff;
-    --off:     #f8f6f2;
-    --stone:   #e8e2d8;
-    --warm:    #c4b8a4;
-    --mid:     #7a6e60;
-    --deep:    #2a2219;
-    --ink:     #1a140d;
-    --gold:    #b8960c;
-    --gold-lt: #d4ae2a;
-    --green:   #2d4a3e;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Jost', sans-serif;
-    background: var(--white);
-    color: var(--ink);
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  .cursor {
-    position: fixed; width: 10px; height: 10px;
-    background: var(--gold); border-radius: 50%;
-    pointer-events: none; z-index: 9999;
-    transform: translate(-50%,-50%);
-    transition: width 0.2s, height 0.2s;
-  }
-  .cursor-ring {
-    position: fixed; width: 36px; height: 36px;
-    border: 1px solid var(--gold); border-radius: 50%;
-    pointer-events: none; z-index: 9998;
-    transform: translate(-50%,-50%);
-    transition: all 0.12s ease;
-    opacity: 0.6;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.8rem 5rem;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--stone);
-  }
-  .logo-wrap { display: flex; flex-direction: column; gap: 1px; }
-  .logo-main {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem; font-weight: 400; letter-spacing: 0.04em;
-    color: var(--ink);
-  }
-  .logo-sub {
-    font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--gold); font-weight: 300;
-  }
-  .nav-center { display: flex; gap: 3rem; }
-  .nav-center a {
-    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--mid); text-decoration: none; font-weight: 300;
-    transition: color 0.3s; position: relative; padding-bottom: 2px;
-  }
-  .nav-center a::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-    background: var(--gold); transform: scaleX(0); transform-origin: left;
-    transition: transform 0.3s;
-  }
-  .nav-center a:hover { color: var(--ink); }
-  .nav-center a:hover::after { transform: scaleX(1); }
-  .nav-book {
-    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--ink); text-decoration: none; font-weight: 400;
-    border: 1px solid var(--ink); padding: 0.65rem 1.6rem;
-    transition: all 0.3s;
-  }
-  .nav-book:hover { background: var(--ink); color: var(--white); }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 0 5rem;
-    position: relative; overflow: hidden;
-    background: var(--white);
-  }
-  .hero-bg-text {
-    position: absolute; right: -2rem; top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(10rem, 18vw, 22rem);
-    font-weight: 300; font-style: italic;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--stone);
-    line-height: 1; pointer-events: none;
-    white-space: nowrap;
-    animation: driftIn 1.4s ease forwards; opacity: 0;
-  }
-  .hero-content { position: relative; z-index: 2; max-width: 700px; }
-  .hero-eyebrow {
-    display: flex; align-items: center; gap: 1rem;
-    font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
-    color: var(--gold); font-weight: 400; margin-bottom: 2rem;
-    animation: fadeUp 0.8s 0.2s ease forwards; opacity: 0;
-  }
-  .hero-eyebrow::before { content: ''; width: 50px; height: 1px; background: var(--gold); }
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.2rem, 6vw, 6.5rem);
-    font-weight: 300; line-height: 1.08;
-    margin-bottom: 2rem;
-    animation: fadeUp 0.9s 0.35s ease forwards; opacity: 0;
-  }
-  .hero-title em { font-style: italic; color: var(--gold); }
-  .hero-desc {
-    font-size: 1rem; color: var(--mid); line-height: 1.75;
-    font-weight: 300; max-width: 520px; margin-bottom: 3.5rem;
-    animation: fadeUp 0.9s 0.5s ease forwards; opacity: 0;
-  }
-  .hero-actions {
-    display: flex; gap: 1.2rem; align-items: center;
-    animation: fadeUp 0.9s 0.65s ease forwards; opacity: 0;
-  }
-  .btn-dark {
-    background: var(--ink); color: var(--white);
-    padding: 1.1rem 2.8rem; border: none;
-    font-family: 'Jost', sans-serif; font-size: 0.75rem;
-    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400;
-    cursor: none; transition: background 0.3s;
-  }
-  .btn-dark:hover { background: var(--green); }
-  .btn-ghost {
-    background: transparent; color: var(--ink);
-    padding: 1.1rem 2.4rem; border: 1px solid var(--warm);
-    font-family: 'Jost', sans-serif; font-size: 0.75rem;
-    letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300;
-    cursor: none; transition: border-color 0.3s;
-  }
-  .btn-ghost:hover { border-color: var(--ink); }
-
-  .guarantee-badge {
-    position: absolute; right: 5rem; bottom: 6rem;
-    width: 130px; height: 130px;
-    border: 1px solid var(--stone); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    animation: spin 18s linear infinite; z-index: 2;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .badge-inner {
-    animation: spin 18s linear infinite reverse;
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
-    text-align: center;
-  }
-  .badge-icon { font-size: 1.4rem; }
-  .badge-text { font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); line-height: 1.4; font-weight: 300; }
-  .badge-main { font-family: 'Playfair Display', serif; font-size: 0.85rem; color: var(--gold); font-weight: 400; }
-
-  /* PROMISE STRIP */
-  .promise-strip {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    border-top: 1px solid var(--stone); border-bottom: 1px solid var(--stone);
-  }
-  .promise {
-    padding: 2.5rem 2.5rem; border-right: 1px solid var(--stone);
-    display: flex; gap: 1.2rem; align-items: flex-start;
-    transition: background 0.3s;
-  }
-  .promise:last-child { border-right: none; }
-  .promise:hover { background: var(--off); }
-  .promise-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
-  .promise-title { font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.3rem; }
-  .promise-desc { font-size: 0.77rem; color: var(--mid); line-height: 1.6; font-weight: 300; }
-
-  /* SECTIONS */
-  section { padding: 7rem 5rem; }
-  .sec-label {
-    font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
-    color: var(--gold); font-weight: 400; margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 0.8rem;
-  }
-  .sec-label::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
-  .sec-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; line-height: 1.2;
-  }
-
-  /* WHY */
-  .why { background: var(--ink); color: var(--white); }
-  .why .sec-title { color: var(--white); }
-  .why-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 6rem; align-items: start; margin-top: 4rem; }
-  .why-left { position: sticky; top: 6rem; }
-  .why-statement {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.3rem, 2vw, 1.8rem); font-weight: 300; line-height: 1.4;
-    color: var(--stone); margin-top: 2rem; font-style: italic;
-  }
-  .why-statement strong { color: var(--gold-lt); font-style: normal; font-weight: 400; }
-  .why-items { display: flex; flex-direction: column; }
-  .why-item {
-    display: flex; gap: 2rem; align-items: flex-start;
-    padding: 2.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);
-    transition: padding-left 0.3s;
-  }
-  .why-item:hover { padding-left: 0.5rem; }
-  .why-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem; font-weight: 300; color: rgba(255,255,255,0.08);
-    line-height: 1; flex-shrink: 0; width: 60px; transition: color 0.3s;
-  }
-  .why-item:hover .why-num { color: var(--gold); }
-  .why-item-title { font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.6rem; }
-  .why-item-desc { font-size: 0.88rem; color: rgba(255,255,255,0.42); line-height: 1.7; font-weight: 300; }
-
-  /* ROOMS */
-  .rooms-section { background: var(--off); padding: 7rem 0; }
-  .rooms-header { padding: 0 5rem; margin-bottom: 3rem; display: flex; justify-content: space-between; align-items: flex-end; }
-  .view-all { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--stone); padding-bottom: 2px; transition: color 0.3s; }
-  .view-all:hover { color: var(--ink); }
-  .rooms-scroll-wrap { overflow-x: auto; padding: 0 5rem 2rem; scrollbar-width: none; }
-  .rooms-scroll-wrap::-webkit-scrollbar { display: none; }
-  .rooms-scroll { display: flex; gap: 1.5rem; width: max-content; }
-  .room-card {
-    width: 330px; background: var(--white); flex-shrink: 0;
-    overflow: hidden; transition: transform 0.4s, box-shadow 0.4s; cursor: none;
-  }
-  .room-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
-  .room-img { height: 210px; position: relative; overflow: hidden; }
-  .room-img-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.6s; }
-  .room-card:hover .room-img-bg { transform: scale(1.05); }
-  .room-tag {
-    position: absolute; top: 1rem; left: 1rem;
-    background: var(--gold); color: var(--ink);
-    padding: 0.28rem 0.85rem; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
-  }
-  .room-body { padding: 1.8rem; }
-  .room-type { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
-  .room-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 0.9rem; }
-  .room-features { display: flex; gap: 1rem; font-size: 0.73rem; color: var(--mid); margin-bottom: 1.4rem; font-weight: 300; }
-  .room-footer { display: flex; justify-content: space-between; align-items: flex-end; padding-top: 1.2rem; border-top: 1px solid var(--stone); }
-  .room-airbnb { font-size: 0.65rem; color: var(--warm); text-transform: uppercase; letter-spacing: 0.08em; text-decoration: line-through; }
-  .room-price { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 300; }
-  .room-price sup { font-size: 0.75rem; font-family: 'Jost'; vertical-align: super; }
-  .room-saving { background: var(--green); color: white; font-size: 0.6rem; padding: 0.3rem 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
-  .rb1 { background: linear-gradient(160deg, #e8dfd0, #c4b8a4, #9a8e80); }
-  .rb2 { background: linear-gradient(160deg, #d4e8e4, #a4c4bc, #6a9e98); }
-  .rb3 { background: linear-gradient(160deg, #e8e4d0, #c8c0a0, #a09878); }
-  .rb4 { background: linear-gradient(160deg, #dde8d4, #b4c8a4, #8aa880); }
-
-  /* COMPARE */
-  .compare { background: var(--white); }
-  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 4rem; }
-  .compare-table { border: 1px solid var(--stone); }
-  .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr; border-bottom: 1px solid var(--stone); }
-  .compare-row:last-child { border-bottom: none; }
-  .compare-cell { padding: 1.1rem 1.4rem; font-size: 0.82rem; display: flex; align-items: center; border-right: 1px solid var(--stone); }
-  .compare-cell:last-child { border-right: none; }
-  .compare-header { background: var(--ink); }
-  .compare-header .compare-cell { color: rgba(255,255,255,0.6); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 300; }
-  .compare-header .ours { color: var(--gold); }
-  .price-ours { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--green); }
-  .price-airbnb { text-decoration: line-through; color: var(--warm); }
-  .compare-statement { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 2.2vw, 2.2rem); font-weight: 300; line-height: 1.35; margin-bottom: 1.5rem; font-style: italic; }
-  .compare-statement strong { font-style: normal; color: var(--green); font-weight: 400; }
-  .compare-note { font-size: 0.85rem; color: var(--mid); line-height: 1.7; font-weight: 300; }
-  .promise-box { margin-top: 2rem; padding: 1.5rem; background: var(--off); border-left: 3px solid var(--gold); }
-  .promise-box-label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
-  .promise-box-text { font-size: 0.83rem; color: var(--mid); font-weight: 300; line-height: 1.6; }
-
-  /* LOCATION */
-  .location { background: var(--deep); color: var(--white); }
-  .location .sec-title { color: var(--white); }
-  .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 4rem; align-items: center; }
-  .location-desc { font-size: 0.9rem; color: rgba(255,255,255,0.48); line-height: 1.8; font-weight: 300; margin: 1.5rem 0 2rem; }
-  .spot { display: flex; align-items: center; gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.85rem; color: rgba(255,255,255,0.5); font-weight: 300; transition: color 0.3s; }
-  .spot:hover { color: var(--white); }
-  .spot-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
-  .spot-dist { margin-left: auto; font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; }
-  .map-box { height: 380px; background: linear-gradient(135deg, #1a2e26, #2d4a3e, #3d6050); position: relative; overflow: hidden; border-radius: 2px; display: flex; align-items: center; justify-content: center; }
-  .map-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 40px 40px; }
-  .map-pin-center { width: 16px; height: 16px; background: var(--gold); border-radius: 50%; box-shadow: 0 0 0 6px rgba(184,150,12,0.25), 0 0 0 14px rgba(184,150,12,0.1); animation: pulse 2.5s infinite; }
-  .map-label { position: absolute; top: 1.2rem; left: 1.2rem; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
-  @keyframes pulse {
-    0%,100% { box-shadow: 0 0 0 6px rgba(184,150,12,0.25), 0 0 0 14px rgba(184,150,12,0.1); }
-    50% { box-shadow: 0 0 0 10px rgba(184,150,12,0.15), 0 0 0 22px rgba(184,150,12,0.05); }
-  }
-
-  /* TESTIMONIALS */
-  .testimonials { background: var(--off); }
-  .test-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
-  .test-card { background: var(--white); padding: 2.5rem; border: 1px solid var(--stone); transition: border-color 0.3s, box-shadow 0.3s; }
-  .test-card:hover { border-color: var(--gold); box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
-  .test-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.2em; margin-bottom: 1.2rem; }
-  .test-quote { font-family: 'Playfair Display', serif; font-size: 0.98rem; font-weight: 300; line-height: 1.65; font-style: italic; margin-bottom: 1.5rem; }
-  .test-author { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); }
-  .test-country { color: var(--gold); }
-
-  /* CTA */
-  .cta-section { background: var(--ink); padding: 8rem 5rem; text-align: center; position: relative; overflow: hidden; }
-  .cta-bg-word { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: 'Playfair Display', serif; font-size: 30vw; font-weight: 300; font-style: italic; color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.025); white-space: nowrap; pointer-events: none; line-height: 1; }
-  .cta-label { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
-  .cta-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; position: relative; z-index: 1; }
-  .cta-title em { font-style: italic; color: var(--gold); }
-  .cta-sub { font-size: 0.9rem; color: rgba(255,255,255,0.42); margin-bottom: 3rem; font-weight: 300; position: relative; z-index: 1; }
-  .cta-actions { display: flex; justify-content: center; gap: 1rem; position: relative; z-index: 1; }
-  .btn-gold { background: var(--gold); color: var(--ink); padding: 1.1rem 3rem; border: none; font-family: 'Jost'; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; cursor: none; transition: background 0.3s; }
-  .btn-gold:hover { background: var(--gold-lt); }
-  .btn-white-outline { background: transparent; color: var(--white); padding: 1.1rem 2.4rem; border: 1px solid rgba(255,255,255,0.2); font-family: 'Jost'; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 300; cursor: none; transition: border-color 0.3s; }
-  .btn-white-outline:hover { border-color: var(--white); }
-
-  /* FOOTER */
-  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.06); padding: 4rem 5rem 2.5rem; }
-  .footer-top { display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 2rem; }
-  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--white); margin-bottom: 0.8rem; display: block; }
-  .footer-logo span { color: var(--gold); }
-  .footer-tagline { font-size: 0.8rem; color: rgba(255,255,255,0.3); line-height: 1.7; font-weight: 300; max-width: 260px; }
-  .footer-col-title { font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
-  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.25s; font-weight: 300; }
-  .footer-links a:hover { color: var(--white); }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.7rem; color: rgba(255,255,255,0.2); font-weight: 300; }
-  .arabic-footer { font-size: 0.95rem; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes driftIn {
-    from { opacity: 0; transform: translateY(-50%) translateX(40px); }
-    to { opacity: 1; transform: translateY(-50%) translateX(0); }
-  }
-</style>
-  <!-- Leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" onload="initMap()"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Stay in Madinah | Premium Direct Booking</title>
+    <!-- Google Fonts: Playfair Display & Jost -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ivory: '#F9F8F4', // Warm Alabaster
+                        ink: '#09101A',   // Deeper Midnight Ink
+                        gold: '#C5A059',  // Champagne Gold
+                        goldHover: '#B08D4C',
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        jost: ['"Jost"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'radial-glow': 'radial-gradient(circle at center, rgba(197, 160, 89, 0.15) 0%, transparent 70%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Premium Glassmorphism for the Map UI */
+        .premium-glass { 
+            background: rgba(9, 16, 26, 0.7); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+        
+        /* Smooth Image Pan */
+        @keyframes slowPan {
+            0% { transform: scale(1.05) translateY(0); }
+            50% { transform: scale(1.05) translateY(-2%); }
+            100% { transform: scale(1.05) translateY(0); }
+        }
+        .animate-pan { animation: slowPan 20s ease-in-out infinite; }
+    </style>
 </head>
-<body>
+<body class="font-jost bg-ivory text-ink antialiased selection:bg-gold selection:text-white">
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+    <!-- Sticky WhatsApp Widget -->
+    <a href="#" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-[0_10px_40px_rgba(37,211,102,0.4)] hover:scale-105 transition-transform duration-300 flex items-center justify-center group">
+        <svg class="w-6 h-6 md:w-7 md:h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 .003 5.385.003 12.031c0 2.126.556 4.198 1.613 6.02L.03 24l6.105-1.602a11.968 11.968 0 0 0 5.896 1.542h.005c6.643 0 12.025-5.384 12.025-12.028C24.055 5.385 18.675 0 12.031 0zm-.005 21.954a9.982 9.982 0 0 1-5.09-1.39l-.365-.217-3.784.992.998-3.69-.237-.377a9.96 9.96 0 0 1-1.523-5.27C1.995 6.486 6.483 2 12.031 2c5.545 0 10.033 4.488 10.033 10.003 0 5.513-4.488 10-10.038 10h-.001zm5.505-7.519c-.302-.151-1.787-.882-2.064-.983-.277-.101-.48-.151-.681.151-.202.302-.78 1.034-.956 1.235-.177.202-.353.227-.655.076-1.574-.789-2.73-1.66-3.784-3.32-.177-.278.177-.278.756-1.41.076-.151.038-.278-.038-.428-.076-.151-.681-1.636-.932-2.24-.246-.59-.496-.51-.681-.52-.177-.01-.378-.01-.58-.01-.202 0-.529.076-.806.378-.277.302-1.058 1.034-1.058 2.518 0 1.484 1.084 2.92 1.235 3.12.151.202 2.116 3.224 5.127 4.524 1.965.848 2.704.899 3.484.75.78-.151 2.368-.968 2.704-1.902.336-.934.336-1.737.236-1.903-.101-.166-.378-.267-.68-.418z"/></svg>
+    </a>
 
-<!-- NAV -->
-<nav>
-  <div class="logo-wrap">
-    <span class="logo-main">My Stay in Madinah</span>
-    <span class="logo-sub">Guaranteed Lowest Rates</span>
-  </div>
-  <div class="nav-center">
-    <a href="#">Location</a>
-    <a href="#">About</a>
-  </div>
-  <a href="#" class="nav-book">Book Direct</a>
-</nav>
+    <!-- 1. HERO SECTION -->
+    <header class="relative min-h-screen w-full bg-ink flex items-center justify-center overflow-hidden pt-12 pb-16 lg:py-0">
+        <div class="absolute top-0 left-0 w-full h-full bg-radial-glow z-0 pointer-events-none"></div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg-text">Madinah</div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Heart of the Holy City</div>
-    <h1 class="hero-title">
-      Stay More.<br>Pay <em>Less.</em><br>Guaranteed.
-    </h1>
-    <p class="hero-desc">
-      Premium rooms in the heart of Madinah — at rates guaranteed to beat every Airbnb listing nearby. Book direct with us and keep what you'd have paid in fees.
-    </p>
-    <div class="hero-actions">
-      <button class="btn-dark">View Our Rooms</button>
-      <button class="btn-ghost">See Rate Comparison</button>
-    </div>
-  </div>
-  <div class="guarantee-badge">
-    <div class="badge-inner">
-      <div class="badge-icon">✦</div>
-      <div class="badge-main">Guaranteed</div>
-      <div class="badge-text">Lowest Rate<br>Promise</div>
-    </div>
-  </div>
-</section>
+        <div class="max-w-[90rem] mx-auto w-full px-6 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center relative z-10">
+            <!-- Left: Typography & CTA -->
+            <div class="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1 text-center lg:text-left">
+                <div class="inline-flex items-center justify-center lg:justify-start gap-4 mb-6 md:mb-8">
+                    <span class="h-[1px] w-8 md:w-12 bg-gold"></span>
+                    <span class="text-gold tracking-[0.2em] text-[10px] md:text-xs lg:text-sm uppercase font-medium">Boutique Stays in Madinah</span>
+                    <span class="h-[1px] w-8 md:w-12 bg-gold lg:hidden"></span>
+                </div>
+                
+                <h1 class="font-playfair text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] text-ivory font-medium tracking-tight leading-[1.1] md:leading-[1.05] mb-6 md:mb-8">
+                    Stay More.<br/>
+                    Pay Less.<br/>
+                    <span class="text-gold italic font-normal">Guaranteed.</span>
+                </h1>
+                
+                <p class="text-base md:text-lg text-ivory/60 font-light max-w-xl mx-auto lg:mx-0 mb-10 md:mb-12 leading-relaxed">
+                    Elevate your Ziyarah with premium, direct-booking accommodation in Al-Aziziyyah. Experience impeccable comfort without the hidden platform fees of Airbnb.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-5 w-full sm:w-auto justify-center lg:justify-start">
+                    <a href="#booking" class="bg-gold hover:bg-white text-ink px-8 py-4 text-center transition-all duration-500 font-medium tracking-wide w-full sm:w-auto">
+                        Reserve Your Room
+                    </a>
+                    <a href="#contact" class="border border-white/20 hover:border-white text-white px-8 py-4 text-center transition-all duration-500 font-medium flex items-center justify-center gap-3 w-full sm:w-auto">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 .003 5.385.003 12.031c0 2.126.556 4.198 1.613 6.02L.03 24l6.105-1.602a11.968 11.968 0 0 0 5.896 1.542h.005c6.643 0 12.025-5.384 12.025-12.028C24.055 5.385 18.675 0 12.031 0z"/></svg>
+                        Chat Direct
+                    </a>
+                </div>
+            </div>
 
-<!-- PROMISE STRIP -->
-<div class="promise-strip">
-  <div class="promise">
-    <div class="promise-icon">🔒</div>
-    <div>
-      <div class="promise-title">Rate Guaranteed</div>
-      <div class="promise-desc">We guarantee to beat any comparable Airbnb listing in the area — no exceptions.</div>
-    </div>
-  </div>
-  <div class="promise">
-    <div class="promise-icon">🕌</div>
-    <div>
-      <div class="promise-title">Heart of Madinah</div>
-      <div class="promise-desc">Steps from Al-Masjid an-Nabawi. The most sought-after location in the city.</div>
-    </div>
-  </div>
-  <div class="promise">
-    <div class="promise-icon">✦</div>
-    <div>
-      <div class="promise-title">Verified Quality</div>
-      <div class="promise-desc">Every room personally inspected and maintained to our exacting standard.</div>
-    </div>
-  </div>
-  <div class="promise">
-    <div class="promise-icon">🤝</div>
-    <div>
-      <div class="promise-title">Book Direct & Save</div>
-      <div class="promise-desc">No platform fees. No hidden charges. What you see is exactly what you pay.</div>
-    </div>
-  </div>
-</div>
-
-<!-- WHY -->
-<section class="why">
-  <div class="sec-label">Why Book With Us</div>
-  <h2 class="sec-title">The Smarter Way<br>to Stay in Madinah</h2>
-  <div class="why-grid">
-    <div class="why-left">
-      <p class="why-statement">
-        Every night on Airbnb, you're paying <strong>platform fees.</strong> With us, that money stays in your pocket — and we put it toward a better stay.
-      </p>
-    </div>
-    <div class="why-items">
-      <div class="why-item">
-        <div class="why-num">01</div>
-        <div>
-          <div class="why-item-title">Guaranteed Lower Rates</div>
-          <div class="why-item-desc">We price every room below the equivalent Airbnb listing. Show us a cheaper verified rate and we'll match it — guaranteed in writing before you pay a single riyal.</div>
+            <!-- Right: Architectural Image Crop -->
+            <div class="lg:col-span-5 relative order-1 lg:order-2 flex justify-center lg:justify-end mt-4 lg:mt-0">
+                <div class="relative w-[75%] sm:w-[60%] lg:w-full max-w-[280px] sm:max-w-md xl:max-w-lg aspect-[3/4] rounded-t-[1000px] rounded-b-xl overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Premium Madinah Room" class="w-full h-full object-cover animate-pan" />
+                    <div class="absolute inset-0 bg-ink/20 mix-blend-multiply"></div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="why-item">
-        <div class="why-num">02</div>
-        <div>
-          <div class="why-item-title">No Hidden Fees</div>
-          <div class="why-item-desc">Airbnb adds service fees of up to 14% at checkout. What you see on our site is what you pay — fully inclusive, no surprises at the end.</div>
+    </header>
+
+    <!-- 2. TRUST PILLARS -->
+    <section class="py-16 md:py-24 lg:py-32 px-6 md:px-12 bg-ivory">
+        <div class="max-w-[90rem] mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 lg:gap-12">
+                <div class="flex flex-col items-center sm:items-start text-center sm:text-left border-l-0 sm:border-l border-ink/10 sm:pl-6 hover:border-gold transition-colors duration-500 cursor-default">
+                    <svg class="w-7 h-7 text-gold mb-4 md:mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="font-playfair text-xl text-ink font-medium mb-2 md:mb-3">The Rate Guarantee</h3>
+                    <p class="text-ink/60 font-light text-sm leading-relaxed max-w-xs">Always cheaper than equivalent platforms. No markups, just honest and transparent value.</p>
+                </div>
+                <div class="flex flex-col items-center sm:items-start text-center sm:text-left border-l-0 sm:border-l border-ink/10 sm:pl-6 hover:border-gold transition-colors duration-500 cursor-default">
+                    <svg class="w-7 h-7 text-gold mb-4 md:mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <h3 class="font-playfair text-xl text-ink font-medium mb-2 md:mb-3">Central Location</h3>
+                    <p class="text-ink/60 font-light text-sm leading-relaxed max-w-xs">Nestled in Al-Aziziyyah offering seamless, short transit to the Prophet’s Mosque.</p>
+                </div>
+                <div class="flex flex-col items-center sm:items-start text-center sm:text-left border-l-0 sm:border-l border-ink/10 sm:pl-6 hover:border-gold transition-colors duration-500 cursor-default">
+                    <svg class="w-7 h-7 text-gold mb-4 md:mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    <h3 class="font-playfair text-xl text-ink font-medium mb-2 md:mb-3">Verified Excellence</h3>
+                    <p class="text-ink/60 font-light text-sm leading-relaxed max-w-xs">Hotel-grade cleanliness and pristine comfort, vetted rigorously for the discerning traveler.</p>
+                </div>
+                <div class="flex flex-col items-center sm:items-start text-center sm:text-left border-l-0 sm:border-l border-ink/10 sm:pl-6 hover:border-gold transition-colors duration-500 cursor-default">
+                    <svg class="w-7 h-7 text-gold mb-4 md:mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <h3 class="font-playfair text-xl text-ink font-medium mb-2 md:mb-3">Frictionless Booking</h3>
+                    <p class="text-ink/60 font-light text-sm leading-relaxed max-w-xs">Zero platform fees. Instant direct confirmation for ultimate peace of mind.</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="why-item">
-        <div class="why-num">03</div>
-        <div>
-          <div class="why-item-title">Premium Central Location</div>
-          <div class="why-item-desc">Our properties sit within walking distance of Al-Masjid an-Nabawi. You won't find this combination of proximity and price on any major platform.</div>
+    </section>
+
+    <!-- 3. THE SMARTER ALTERNATIVE -->
+    <section class="py-16 md:py-24 px-6 md:px-12 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-10 md:mb-16">
+                <h2 class="font-playfair text-3xl md:text-4xl text-ink font-semibold mb-4">The Smarter Alternative</h2>
+                <p class="text-ink/60 font-light text-base md:text-lg max-w-xl mx-auto">Why paying a middleman doesn't make sense for your Ziyarah.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border border-gray-100 rounded-2xl overflow-hidden shadow-xl md:shadow-2xl">
+                <!-- The Platform Way -->
+                <div class="bg-gray-50 p-8 sm:p-10 md:p-14 border-b md:border-b-0 md:border-r border-gray-200">
+                    <h3 class="font-playfair text-xl md:text-2xl text-ink/50 mb-6 md:mb-8 border-b border-gray-200 pb-4">The Platform Way</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4 text-ink/70">
+                            <span class="text-red-400 font-bold mt-1">✕</span>
+                            <div>
+                                <strong class="block text-ink font-medium text-sm md:text-base">Hidden Service Fees</strong>
+                                <span class="text-xs md:text-sm font-light">Up to 20% added to your final bill at checkout.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 text-ink/70">
+                            <span class="text-red-400 font-bold mt-1">✕</span>
+                            <div>
+                                <strong class="block text-ink font-medium text-sm md:text-base">Inconsistent Standards</strong>
+                                <span class="text-xs md:text-sm font-light">Varying hosts mean unpredictable hygiene and comfort.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 text-ink/70">
+                            <span class="text-red-400 font-bold mt-1">✕</span>
+                            <div>
+                                <strong class="block text-ink font-medium text-sm md:text-base">Inflated Seasonal Pricing</strong>
+                                <span class="text-xs md:text-sm font-light">Algorithms double the price during peak seasons.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- The Direct Way -->
+                <div class="bg-ink p-8 sm:p-10 md:p-14">
+                    <h3 class="font-playfair text-xl md:text-2xl text-gold mb-6 md:mb-8 border-b border-ink/50 pb-4">The Direct Way</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4 text-ivory">
+                            <svg class="w-5 h-5 text-gold mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <div>
+                                <strong class="block font-medium text-sm md:text-base">Transparent Pricing</strong>
+                                <span class="text-xs md:text-sm font-light text-ivory/70">What you see is exactly what you pay. Zero fees.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 text-ivory">
+                            <svg class="w-5 h-5 text-gold mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <div>
+                                <strong class="block font-medium text-sm md:text-base">Guaranteed Premium Standards</strong>
+                                <span class="text-xs md:text-sm font-light text-ivory/70">Professionally managed to luxury boutique levels.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 text-ivory">
+                            <svg class="w-5 h-5 text-gold mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <div>
+                                <strong class="block font-medium text-sm md:text-base">Seamless Hospitality</strong>
+                                <span class="text-xs md:text-sm font-light text-ivory/70">A dedicated concierge team, not a remote host.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="why-item">
-        <div class="why-num">04</div>
-        <div>
-          <div class="why-item-title">Ensured & Inspected</div>
-          <div class="why-item-desc">Unlike Airbnb listings that vary wildly in quality, every room we offer is personally vetted, prepared and maintained to the same high standard — every stay.</div>
+    </section>
+
+    <!-- 4. LOCATION & CONNECTIVITY -->
+    <section class="py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-12 bg-ivory">
+        <div class="max-w-[90rem] mx-auto">
+            <div class="mb-10 md:mb-12 max-w-2xl text-center md:text-left mx-auto md:mx-0">
+                <h2 class="font-playfair text-3xl sm:text-4xl lg:text-5xl text-ink font-semibold mb-4 md:mb-6">Perfectly Positioned</h2>
+                <p class="text-ink/60 font-light text-base md:text-lg leading-relaxed">
+                    Located in the serene Al-Aziziyyah district, offering a peaceful retreat from the crowds while maintaining effortless connectivity to Madinah's most sacred sites.
+                </p>
+            </div>
+
+            <!-- Stylized Abstract Interactive Map Container -->
+            <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl flex flex-col md:block border border-gray-200 bg-[#0A0F16]">
+                <div class="relative w-full h-[350px] sm:h-[400px] md:h-[650px] overflow-hidden shrink-0 bg-[#0A0F16]">
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_60%_50%,rgba(197,160,89,0.1)_0%,transparent_60%)] pointer-events-none"></div>
+                    <svg class="absolute inset-0 w-full h-full opacity-40 pointer-events-none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#grid)" />
+                        <g stroke="#C5A059" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M-100,200 Q300,300 60% 50% T1200,600" stroke-width="0.5" stroke-opacity="0.5"/>
+                            <path d="M200,-100 Q400,200 60% 50% T800,900" stroke-width="0.5" stroke-opacity="0.5"/>
+                            <path d="M-50,600 Q350,550 60% 50% T1000,-50" stroke-width="0.5" stroke-opacity="0.5"/>
+                            <circle cx="60%" cy="50%" r="100" stroke-width="0.3" stroke-dasharray="4 4" stroke-opacity="0.4"/>
+                            <circle cx="60%" cy="50%" r="200" stroke-width="0.3" stroke-dasharray="4 4" stroke-opacity="0.2"/>
+                            <circle cx="60%" cy="50%" r="350" stroke-width="0.3" stroke-dasharray="4 4" stroke-opacity="0.1"/>
+                        </g>
+                        <path d="M25% 30% L60% 50%" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4 4" class="hidden md:block"/>
+                        <path d="M25% 50% L60% 50%" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4 4" class="hidden md:block"/>
+                        <path d="M25% 70% L60% 50%" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4 4" class="hidden md:block"/>
+                    </svg>
+
+                    <!-- Glowing Main Node -->
+                    <div class="absolute top-[50%] left-[50%] md:left-[60%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                        <div class="w-5 h-5 md:w-6 md:h-6 bg-gold rounded-full shadow-[0_0_30px_rgba(197,160,89,1)] border-[3px] md:border-4 border-[#0A0F16] z-10 animate-pulse"></div>
+                        <span class="text-white mt-2 md:mt-3 text-xs md:text-sm font-playfair tracking-wider whitespace-nowrap text-shadow">Al-Masjid an-Nabawi</span>
+                    </div>
+                </div>
+
+                <!-- Overlay UI Panels -->
+                <div class="relative md:absolute inset-y-0 left-0 w-full md:w-[400px] p-5 sm:p-6 md:p-10 flex flex-col justify-center gap-3 sm:gap-4 z-20 pointer-events-none bg-ink md:bg-transparent border-t border-white/10 md:border-none">
+                    <div class="premium-glass bg-white/5 md:bg-ink/70 rounded-xl p-4 sm:p-5 transform transition-transform hover:scale-[1.02] pointer-events-auto cursor-default border border-white/10">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center border border-gold/40 flex-shrink-0"><span class="text-gold text-lg">📍</span></div>
+                            <div>
+                                <p class="text-white font-medium text-sm md:text-base">My Stay in Madinah</p>
+                                <p class="text-gold text-xs mt-1">Al-Aziziyyah District</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="premium-glass bg-white/5 md:bg-ink/70 rounded-xl p-4 sm:p-5 flex items-center justify-between pointer-events-auto cursor-default group hover:bg-white/10 transition-colors border border-white/5 md:border-white/10">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <span class="text-white/50 group-hover:text-white transition-colors text-lg">🕌</span>
+                            <p class="text-white/80 font-light text-xs sm:text-sm">Masjid Quba</p>
+                        </div>
+                        <span class="text-gold text-[10px] sm:text-xs font-medium bg-gold/10 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">10 min drive</span>
+                    </div>
+                    <div class="premium-glass bg-white/5 md:bg-ink/70 rounded-xl p-4 sm:p-5 flex items-center justify-between pointer-events-auto cursor-default group hover:bg-white/10 transition-colors border border-white/5 md:border-white/10">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <span class="text-white/50 group-hover:text-white transition-colors text-lg">🕊️</span>
+                            <p class="text-white/80 font-light text-xs sm:text-sm">Jannat al-Baqi</p>
+                        </div>
+                        <span class="text-gold text-[10px] sm:text-xs font-medium bg-gold/10 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">15 min drive</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
+    <!-- 5. CURATED ZIYARAH (GUIDED TOURS) -->
+    <section class="py-16 md:py-24 lg:py-32 px-6 md:px-12 bg-ink text-ivory">
+        <div class="max-w-[90rem] mx-auto">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 md:mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-4 mb-4">
+                        <span class="h-[1px] w-8 md:w-12 bg-gold"></span>
+                        <span class="text-gold tracking-[0.2em] text-[10px] md:text-xs uppercase font-medium">Curated Experiences</span>
+                    </div>
+                    <h2 class="font-playfair text-3xl sm:text-4xl lg:text-5xl font-semibold mb-4 md:mb-6 leading-tight text-white">Guided Tours of Sacred Madinah</h2>
+                    <p class="text-ivory/60 font-light text-base md:text-lg leading-relaxed">
+                        Beyond premium accommodation, we offer bespoke Ziyarah experiences. Journey through the Prophet's city with deeply knowledgeable local guides in absolute comfort.
+                    </p>
+                </div>
+                <a href="#tours" class="inline-block border-b border-gold text-gold hover:text-white hover:border-white transition-colors duration-300 pb-1 font-medium text-sm md:text-base whitespace-nowrap">
+                    Enquire About Tours &rarr;
+                </a>
+            </div>
 
+            <!-- Tour Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                
+                <!-- Card 1 -->
+                <div class="group relative h-[400px] md:h-[480px] rounded-2xl overflow-hidden cursor-pointer border border-white/10 shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mount Uhud" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                    <!-- Gradient Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#09101A] via-[#09101A]/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <!-- Card Content -->
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                        <span class="text-gold text-[10px] md:text-xs font-semibold uppercase tracking-widest mb-2 block">The Martyrs' Valley</span>
+                        <h3 class="font-playfair text-2xl md:text-3xl text-white mb-3">Mount Uhud</h3>
+                        <!-- Text is visible on mobile natively, animates in on desktop -->
+                        <p class="text-white/70 font-light text-sm md:text-base leading-relaxed lg:transform lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-500">
+                            Walk the historic battlefield of Uhud. Pay respects at the Martyrs' Cemetery while our guides share profound insights into one of Islam's pivotal moments.
+                        </p>
+                    </div>
+                </div>
 
+                <!-- Card 2 -->
+                <div class="group relative h-[400px] md:h-[480px] rounded-2xl overflow-hidden cursor-pointer border border-white/10 shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1580418827493-f2b22c0a76cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Masjid Quba" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#09101A] via-[#09101A]/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                        <span class="text-gold text-[10px] md:text-xs font-semibold uppercase tracking-widest mb-2 block">The First Mosque</span>
+                        <h3 class="font-playfair text-2xl md:text-3xl text-white mb-3">Masjid Quba</h3>
+                        <p class="text-white/70 font-light text-sm md:text-base leading-relaxed lg:transform lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-500">
+                            Pray in the very first mosque built in Islam. Our curated tour ensures a serene visit away from peak crowds, complete with historical context.
+                        </p>
+                    </div>
+                </div>
 
+                <!-- Card 3 -->
+                <div class="group relative h-[400px] md:h-[480px] rounded-2xl overflow-hidden cursor-pointer border border-white/10 shadow-2xl md:col-span-2 lg:col-span-1">
+                    <img src="https://images.unsplash.com/photo-1608226017121-65392e987c9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="The Seven Mosques" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#09101A] via-[#09101A]/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="absolute inset-0 p-8 flex flex-col justify-end">
+                        <span class="text-gold text-[10px] md:text-xs font-semibold uppercase tracking-widest mb-2 block">Battle of Khandaq</span>
+                        <h3 class="font-playfair text-2xl md:text-3xl text-white mb-3">The Seven Mosques</h3>
+                        <p class="text-white/70 font-light text-sm md:text-base leading-relaxed lg:transform lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-500">
+                            Explore the site of the Trench. Understand the strategic genius and spiritual resilience of the early Muslims through expertly guided storytelling.
+                        </p>
+                    </div>
+                </div>
 
-<!-- LOCATION -->
-<section class="location">
-  <div class="sec-label">Our Location</div>
-  <div class="location-grid">
-    <div>
-      <h2 class="sec-title">Close to the<br>Heart of Madinah</h2>
-      <p class="location-desc">Our first property is situated at <strong style="color:var(--gold-lt);">24&#xb0;28&#x2019;02.9&#x22;N 39&#xb0;33&#x2019;51.6&#x22;E, Al-Aziziyyah, Madinah</strong> &#x2014; a short drive or 20-minute walk west of Al-Masjid an-Nabawi, in a peaceful residential neighbourhood with easy shuttle access to the Haram.</p>
-      <div>
-        <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;margin-top:0.5rem;">Mosques &amp; Sacred Sites</div>
-        <div class="spot"><div class="spot-dot"></div> Al-Masjid an-Nabawi (Prophet&#x2019;s Mosque) <span class="spot-dist">20 min walk / 8 min drive</span></div>
-        <div class="spot"><div class="spot-dot"></div> The Green Dome &#x2014; Rawdah al-Sharif <span class="spot-dist">22 min walk / 9 min drive</span></div>
-        <div class="spot"><div class="spot-dot"></div> Masjid al-Ghamamah <span class="spot-dist">18 min walk</span></div>
-        <div class="spot"><div class="spot-dot"></div> Jannat al-Baqi Cemetery <span class="spot-dist">10 min drive</span></div>
-        <div class="spot"><div class="spot-dot"></div> Masjid Quba (first mosque in Islam) <span class="spot-dist">15 min drive</span></div>
-        <div class="spot"><div class="spot-dot"></div> Mount Uhud &amp; Martyrs&#x2019; Graves <span class="spot-dist">20 min drive</span></div>
-        <div class="spot"><div class="spot-dot"></div> Masjid Al-Qiblatayn <span class="spot-dist">18 min drive</span></div>
-        <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;margin-top:1.4rem;">Transport &amp; Amenities</div>
-        <div class="spot"><div class="spot-dot"></div> Haram Shuttle Bus (to Mosque) <span class="spot-dist">3 min walk</span></div>
-        <div class="spot"><div class="spot-dot"></div> Local Restaurants &amp; Supermarkets <span class="spot-dist">2 min walk</span></div>
-        <div class="spot"><div class="spot-dot"></div> Al-Haramain High-Speed Train Station <span class="spot-dist">20 min drive</span></div>
-        <div class="spot"><div class="spot-dot"></div> Prince Mohammad Bin Abdulaziz Airport <span class="spot-dist">25 min drive</span></div>
-      </div>
-    </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- LEAFLET MAP -->
-    <div style="position:relative;height:500px;border-radius:2px;overflow:hidden;">
-      <div id="property-map" style="width:100%;height:100%;"></div>
+    <!-- 6. GLOBAL SOCIAL PROOF -->
+    <section class="py-16 md:py-24 bg-white overflow-hidden">
+        <div class="max-w-[90rem] mx-auto px-6 md:px-12 mb-8 md:mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div>
+                <h2 class="font-playfair text-3xl md:text-4xl text-ink font-semibold mb-2">Trusted Globally</h2>
+                <p class="text-ink/60 font-light text-sm md:text-base">Experiences from pilgrims around the world.</p>
+            </div>
+            <div class="hidden md:flex gap-2">
+                <button class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-200 flex items-center justify-center text-ink hover:bg-ink hover:text-white transition-colors">→</button>
+            </div>
+        </div>
 
-      <!-- Custom pin label -->
-      <div id="map-label-badge" style="position:absolute;bottom:3.5rem;left:50%;transform:translateX(-50%);background:#b8960c;color:#1a140d;font-family:'Jost',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.35rem 1rem;border-radius:2px;white-space:nowrap;z-index:1000;pointer-events:none;">My Stay in Madinah</div>
+        <div class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-4 sm:gap-6 px-6 md:px-12 pb-10 w-full max-w-[100rem] mx-auto">
+            <div class="snap-start shrink-0 w-[85vw] sm:w-[380px] md:w-[420px] bg-ivory p-6 sm:p-8 md:p-10 rounded-xl border border-gray-100 flex flex-col">
+                <div class="flex text-gold mb-4 md:mb-6 text-xs sm:text-sm">★★★★★</div>
+                <p class="font-light text-ink/80 italic mb-6 md:mb-8 leading-relaxed text-sm md:text-base">"Skipped Airbnb for the first time and couldn't be happier. The room was impeccable, communication was instant via WhatsApp, and saving 15% on fees made a huge difference."</p>
+                <div class="flex items-center gap-3 sm:gap-4 mt-auto">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-ink rounded-full flex items-center justify-center text-white text-xs md:text-sm font-medium flex-shrink-0">OA</div>
+                    <div>
+                        <p class="font-medium text-ink text-sm">Omar A.</p>
+                        <p class="text-[10px] md:text-xs text-ink/50 mt-1">🇬🇧 United Kingdom</p>
+                    </div>
+                </div>
+            </div>
+            <div class="snap-start shrink-0 w-[85vw] sm:w-[380px] md:w-[420px] bg-ivory p-6 sm:p-8 md:p-10 rounded-xl border border-gray-100 flex flex-col">
+                <div class="flex text-gold mb-4 md:mb-6 text-xs sm:text-sm">★★★★★</div>
+                <p class="font-light text-ink/80 italic mb-6 md:mb-8 leading-relaxed text-sm md:text-base">"A truly serene experience. The location in Al-Aziziyyah is quiet and beautiful. Knowing we were getting the best direct rate gave us total peace of mind during our Ziyarah."</p>
+                <div class="flex items-center gap-3 sm:gap-4 mt-auto">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-ink rounded-full flex items-center justify-center text-white text-xs md:text-sm font-medium flex-shrink-0">FK</div>
+                    <div>
+                        <p class="font-medium text-ink text-sm">Fatima K.</p>
+                        <p class="text-[10px] md:text-xs text-ink/50 mt-1">🇦🇪 UAE</p>
+                    </div>
+                </div>
+            </div>
+            <div class="snap-start shrink-0 w-[85vw] sm:w-[380px] md:w-[420px] bg-ivory p-6 sm:p-8 md:p-10 rounded-xl border border-gray-100 flex flex-col">
+                <div class="flex text-gold mb-4 md:mb-6 text-xs sm:text-sm">★★★★★</div>
+                <p class="font-light text-ink/80 italic mb-6 md:mb-8 leading-relaxed text-sm md:text-base">"Far superior to previous hotel bookings. The attention to detail is luxury standard, but the booking process was completely frictionless. Will return."</p>
+                <div class="flex items-center gap-3 sm:gap-4 mt-auto">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-ink rounded-full flex items-center justify-center text-white text-xs md:text-sm font-medium flex-shrink-0">TR</div>
+                    <div>
+                        <p class="font-medium text-ink text-sm">Tariq R.</p>
+                        <p class="text-[10px] md:text-xs text-ink/50 mt-1">🇺🇸 United States</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <!-- Open in maps -->
-      <a href="https://maps.google.com/?q=24.467472,39.564333" target="_blank"
-         style="position:absolute;bottom:1rem;right:1rem;z-index:1000;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);background:rgba(26,20,13,0.85);padding:0.4rem 0.9rem;border:1px solid rgba(184,150,12,0.3);text-decoration:none;font-family:'Jost',sans-serif;backdrop-filter:blur(8px);">
-        Open in Google Maps &#x2197;
-      </a>
+    <!-- FOOTER & FINAL CTA -->
+    <footer class="bg-ink pt-20 md:pt-32 pb-8 md:pb-12 px-6 md:px-12 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center mb-16 md:mb-24">
+            <h2 class="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-6 md:mb-8 leading-tight">Your spiritual journey deserves a peaceful stay.</h2>
+            <p class="text-white/50 font-light text-base md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto px-4">Skip the platform fees. Secure your premium room in Al-Aziziyyah today for the best guaranteed rate.</p>
+            <a href="#booking" class="inline-block bg-gold hover:bg-white text-ink px-8 md:px-12 py-4 md:py-5 rounded-sm font-medium tracking-wide transition-all duration-500 shadow-xl text-base md:text-lg w-full sm:w-auto">
+                Secure Your Room Directly
+            </a>
+        </div>
 
-      <!-- Coord label -->
-      <div style="position:absolute;bottom:1rem;left:1rem;z-index:1000;font-size:0.58rem;color:rgba(255,255,255,0.5);font-family:'Jost',sans-serif;background:rgba(26,20,13,0.7);padding:0.35rem 0.8rem;backdrop-filter:blur(8px);">
-        24&#xb0;28&#x2032;02.9&#x22;N &nbsp; 39&#xb0;33&#x2032;51.6&#x22;E
-      </div>
-    </div>
-  </div>
-</section>
+        <div class="max-w-[90rem] mx-auto flex flex-col md:flex-row justify-between items-center border-t border-white/10 pt-8 text-xs md:text-sm text-white/40 font-light gap-4 md:gap-0">
+            <p>&copy; 2026 My Stay in Madinah. All rights reserved.</p>
+            <div class="flex gap-6 md:gap-8">
+                <a href="#" class="hover:text-gold transition-colors">Terms</a>
+                <a href="#" class="hover:text-gold transition-colors">Privacy</a>
+                <a href="#" class="hover:text-gold transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
 
-<!-- COMING SOON -->
-<section style="background:var(--off);padding:7rem 5rem;">
-  <div class="sec-label">More Properties</div>
-  <h2 class="sec-title">More Rooms.<br>Coming Soon.</h2>
-  <p style="font-size:0.92rem;color:var(--mid);line-height:1.75;font-weight:300;max-width:540px;margin:1.5rem 0 4rem;">We're expanding. Additional rooms and properties across Madinah are in preparation — all held to the same standard, all guaranteed to beat Airbnb rates.</p>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
-    <div style="background:var(--white);border:1px solid var(--stone);padding:2.5rem;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:1.2rem;right:1.2rem;background:var(--ink);color:var(--gold);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.28rem 0.8rem;">Coming Soon</div>
-      <div style="font-size:1.8rem;margin-bottom:1.2rem;">🛏</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin-bottom:0.6rem;">Standard Rooms</div>
-      <div style="font-size:0.82rem;color:var(--mid);line-height:1.65;font-weight:300;">Comfortable, clean and centrally located — ideal for solo travellers and couples on Umrah or Ziyarah.</div>
-    </div>
-    <div style="background:var(--white);border:1px solid var(--stone);padding:2.5rem;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:1.2rem;right:1.2rem;background:var(--ink);color:var(--gold);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.28rem 0.8rem;">Coming Soon</div>
-      <div style="font-size:1.8rem;margin-bottom:1.2rem;">👨‍👩‍👧</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin-bottom:0.6rem;">Family Suites</div>
-      <div style="font-size:0.82rem;color:var(--mid);line-height:1.65;font-weight:300;">Spacious multi-room suites designed for families — with everything you need for an extended stay in the holy city.</div>
-    </div>
-    <div style="background:var(--white);border:1px solid var(--stone);padding:2.5rem;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:1.2rem;right:1.2rem;background:var(--ink);color:var(--gold);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.28rem 0.8rem;">Coming Soon</div>
-      <div style="font-size:1.8rem;margin-bottom:1.2rem;">✦</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin-bottom:0.6rem;">Premium Suites</div>
-      <div style="font-size:0.82rem;color:var(--mid);line-height:1.65;font-weight:300;">Elevated finishes, superior views and priority service — for guests who want the very best at the lowest guaranteed price.</div>
-    </div>
-  </div>
-  <div style="margin-top:3rem;padding:1.8rem 2rem;background:var(--white);border:1px solid var(--stone);border-left:3px solid var(--gold);display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;">
-    <div>
-      <div style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">Be the first to know</div>
-      <div style="font-size:0.88rem;color:var(--mid);font-weight:300;">Register your interest and we'll notify you as soon as new rooms become available.</div>
-    </div>
-    <button class="btn-dark" style="white-space:nowrap;">WhatsApp to Register</button>
-  </div>
-</section>
-
-<!-- TOURS COMING SOON -->
-<section style="background:var(--ink);padding:7rem 5rem;color:var(--white);position:relative;overflow:hidden;">
-  <div style="position:absolute;top:50%;right:-5rem;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:22rem;font-weight:300;font-style:italic;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.03);pointer-events:none;line-height:1;white-space:nowrap;">Tours</div>
-  <div style="position:relative;z-index:1;">
-    <div class="sec-label">Coming Soon</div>
-    <h2 class="sec-title" style="color:var(--white);">Guided Tours of<br><em style="font-style:italic;color:var(--gold);">Sacred Madinah</em></h2>
-    <p style="font-size:0.92rem;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;max-width:560px;margin:1.5rem 0 4rem;">We are working with local scholars and guides to offer our guests intimate, meaningful tours of Madinah's most sacred and historic sites — exclusively for My Stay in Madinah guests.</p>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem;">
-
-      <div style="border:1px solid rgba(255,255,255,0.08);padding:2.5rem;position:relative;transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(184,150,12,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
-        <div style="position:absolute;top:1.2rem;right:1.2rem;border:1px solid rgba(184,150,12,0.4);color:var(--gold);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 0.7rem;">Coming Soon</div>
-        <div style="font-size:1.8rem;margin-bottom:1.2rem;">🕌</div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:0.6rem;color:var(--white);">Masjid an-Nabawi Tour</div>
-        <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">A guided walk through the Prophet's Mosque, the Rawdah al-Sharif, and the Green Dome — with historical and spiritual context.</div>
-        <div style="margin-top:1.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Est. 2–3 hours · On foot</div>
-      </div>
-
-      <div style="border:1px solid rgba(255,255,255,0.08);padding:2.5rem;position:relative;transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(184,150,12,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
-        <div style="position:absolute;top:1.2rem;right:1.2rem;border:1px solid rgba(184,150,12,0.4);color:var(--gold);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 0.7rem;">Coming Soon</div>
-        <div style="font-size:1.8rem;margin-bottom:1.2rem;">⛰️</div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:0.6rem;color:var(--white);">Battle of Uhud & Mount Uhud</div>
-        <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">Visit the site of one of Islam's most significant battles, the graves of the martyrs, and the resting place of Sayyiduna Hamza (RA).</div>
-        <div style="margin-top:1.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Est. 3 hours · Minibus</div>
-      </div>
-
-      <div style="border:1px solid rgba(255,255,255,0.08);padding:2.5rem;position:relative;transition:border-color 0.3s;" onmouseover="this.style.borderColor='rgba(184,150,12,0.4)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
-        <div style="position:absolute;top:1.2rem;right:1.2rem;border:1px solid rgba(184,150,12,0.4);color:var(--gold);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;padding:0.25rem 0.7rem;">Coming Soon</div>
-        <div style="font-size:1.8rem;margin-bottom:1.2rem;">🌙</div>
-        <div style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;margin-bottom:0.6rem;color:var(--white);">Full Ziyarah Day Tour</div>
-        <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">A comprehensive day visiting Quba Mosque, Masjid al-Qiblatayn, the Seven Mosques, Bir Uthman well, and Jannat al-Baqi.</div>
-        <div style="margin-top:1.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);">Est. Full day · Private car</div>
-      </div>
-
-    </div>
-    <div style="padding:2rem;border:1px solid rgba(184,150,12,0.2);display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;background:rgba(184,150,12,0.04);">
-      <div>
-        <div style="font-size:0.62rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;">Register Your Interest</div>
-        <div style="font-size:0.88rem;color:rgba(255,255,255,0.4);font-weight:300;">Tours will be available exclusively to our guests. WhatsApp us to be notified when bookings open.</div>
-      </div>
-      <button class="btn-gold" style="white-space:nowrap;">WhatsApp to Register</button>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <div class="sec-label">Guest Reviews</div>
-  <h2 class="sec-title">Trusted by Pilgrims<br>Across the World</h2>
-  <div class="test-grid">
-    <div class="test-card">
-      <div class="test-stars">★★★★★</div>
-      <p class="test-quote">"I checked every listing on Airbnb before booking. My Stay in Madinah was genuinely cheaper — by nearly SAR 200 a night. The room was spotless and the location was perfect."</p>
-      <div class="test-author">Ahmed K. — <span class="test-country">Egypt</span></div>
-    </div>
-    <div class="test-card">
-      <div class="test-stars">★★★★★</div>
-      <p class="test-quote">"The guarantee is real. They showed me the comparison themselves before I paid anything. Completely honest, beautifully clean, and right next to the mosque."</p>
-      <div class="test-author">Fatima R. — <span class="test-country">United Kingdom</span></div>
-    </div>
-    <div class="test-card">
-      <div class="test-stars">★★★★★</div>
-      <p class="test-quote">"As a family of five we needed space and value. The suite was immaculate and we saved over SAR 1,400 across our seven-night stay. Will book again next Umrah."</p>
-      <div class="test-author">Hassan M. — <span class="test-country">Pakistan</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-bg-word">Stay</div>
-  <div class="cta-label">Book Direct &amp; Save</div>
-  <h2 class="cta-title">Your Best Stay in<br><em>Madinah</em> Awaits</h2>
-  <p class="cta-sub">Guaranteed lower than Airbnb. No fees. No compromise.</p>
-  <div class="cta-actions">
-    <button class="btn-gold">Book Your Room</button>
-    <button class="btn-white-outline">WhatsApp Us</button>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div>
-      <span class="footer-logo">My Stay in <span>Madinah</span></span>
-      <p class="footer-tagline">Premium rooms in the heart of Al Madinah Al Munawwarah — guaranteed to beat every Airbnb price in the area.</p>
-    </div>
-    <div>
-      <div class="footer-col-title">Rooms</div>
-      <ul class="footer-links">
-        <li><a href="#">Standard Rooms</a></li>
-        <li><a href="#">Deluxe Rooms</a></li>
-        <li><a href="#">Family Suites</a></li>
-        <li><a href="#">Premium Suites</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Information</div>
-      <ul class="footer-links">
-        <li><a href="#">Rate Guarantee</a></li>
-        <li><a href="#">Our Location</a></li>
-        <li><a href="#">Check-in Guide</a></li>
-        <li><a href="#">FAQ</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Contact</div>
-      <ul class="footer-links">
-        <li><a href="#">WhatsApp Us</a></li>
-        <li><a href="#">Email</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Book Direct</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div>© 2025 My Stay in Madinah. All rights reserved.</div>
-    <div class="arabic-footer">المدينة المنورة — أفضل الأسعار مضمونة</div>
-  </div>
-</footer>
-
-<script>
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    setTimeout(() => {
-      ring.style.left = e.clientX + 'px';
-      ring.style.top = e.clientY + 'px';
-    }, 60);
-  });
-</script>
-
-<script>
-function initMap() {
-  var LAT = 24.467472;
-  var LNG = 39.564333;
-
-  var map = L.map('property-map', {
-    center: [LAT, LNG],
-    zoom: 15,
-    zoomControl: true,
-    scrollWheelZoom: false
-  });
-
-  L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-    maxZoom: 20,
-    attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(map);
-
-  var propIcon = L.divIcon({
-    className: '',
-    html: '<div style="width:18px;height:18px;background:#b8960c;border-radius:50%;border:3px solid #e8c97a;box-shadow:0 0 0 6px rgba(184,150,12,0.25),0 0 0 14px rgba(184,150,12,0.1);"></div>',
-    iconSize: [18, 18],
-    iconAnchor: [9, 9]
-  });
-
-  var mosqueIcon = L.divIcon({
-    className: '',
-    html: '<div style="width:13px;height:13px;background:#3a8e4a;border-radius:50%;border:2px solid #5aba6a;box-shadow:0 0 0 4px rgba(58,142,74,0.2);"></div>',
-    iconSize: [13, 13],
-    iconAnchor: [6, 6]
-  });
-
-  L.marker([LAT, LNG], {icon: propIcon})
-    .addTo(map)
-    .bindPopup("<strong style='font-family:serif;font-size:1rem;'>My Stay in Madinah</strong><br><span style='font-size:0.75rem;color:#888;'>Your property &mdash; Al-Aziziyyah</span>")
-    .openPopup();
-
-  L.marker([24.467035, 39.610947], {icon: mosqueIcon})
-    .addTo(map)
-    .bindPopup("<strong style='font-family:serif;'>Al-Masjid an-Nabawi</strong><br><span style='font-size:0.75rem;color:#888;'>Prophet's Mosque &mdash; ~4.5km east</span>");
-
-  L.marker([24.440099, 39.616734], {icon: mosqueIcon})
-    .addTo(map)
-    .bindPopup("<strong style='font-family:serif;'>Masjid Quba</strong><br><span style='font-size:0.75rem;color:#888;'>First mosque in Islam</span>");
-
-  L.marker([24.464722, 39.614444], {icon: mosqueIcon})
-    .addTo(map)
-    .bindPopup("<strong style='font-family:serif;'>Jannat al-Baqi</strong><br><span style='font-size:0.75rem;color:#888;'>Historic Islamic cemetery</span>");
-
-  L.marker([24.468333, 39.607222], {icon: mosqueIcon})
-    .addTo(map)
-    .bindPopup("<strong style='font-family:serif;'>Masjid al-Ghamamah</strong><br><span style='font-size:0.75rem;color:#888;'>~3.8km east</span>");
-
-  L.polyline(
-    [[LAT, LNG], [24.467035, 39.610947]],
-    { color: '#b8960c', weight: 1.5, dashArray: '6,5', opacity: 0.55 }
-  ).addTo(map);
-}
-</script>
 </body>
 </html>
