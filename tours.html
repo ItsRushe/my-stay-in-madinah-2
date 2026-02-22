@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guided Ziyarah | My Stay in Madinah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { ivory: '#F9F8F4', ink: '#09101A', gold: '#C5A059' }, fontFamily: { playfair: ['"Playfair Display"', 'serif'], jost: ['"Jost"', 'sans-serif'] } } } }
+    </script>
+</head>
+<body class="font-jost bg-ivory text-ink antialiased selection:bg-gold selection:text-white pt-20">
+
+    <!-- BRANDED NAVIGATION -->
+    <nav class="fixed top-0 w-full z-[100] bg-ink/90 backdrop-blur-md border-b border-white/10 transition-all duration-300">
+        <div class="max-w-[90rem] mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="logo.png" alt="My Stay in Madinah Icon" class="h-8 md:h-10 w-auto object-contain transition-transform duration-500 group-hover:scale-105" onerror="this.style.display='none'">
+                <span class="text-gold font-playfair text-xl md:text-2xl font-semibold tracking-wide hidden sm:block">My Stay in Madinah</span>
+            </a>
+            <div class="hidden md:flex gap-8 items-center text-sm tracking-wide text-ivory/80">
+                <a href="index.html" class="hover:text-gold transition-colors">Home</a>
+                <a href="rooms.html" class="hover:text-gold transition-colors">Rooms</a>
+                <a href="tours.html" class="text-gold transition-colors">Tours</a>
+                <a href="contact.html" class="hover:text-gold transition-colors">Contact</a>
+                <a href="contact.html" class="bg-gold hover:bg-white text-ink px-5 py-2 rounded-sm font-medium transition-all duration-300">Book Direct</a>
+            </div>
+            <!-- Mobile Menu Icon -->
+            <button class="md:hidden text-gold"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="bg-ink py-24 md:py-32 px-6 border-b border-white/10 text-center">
+        <h1 class="font-playfair text-4xl md:text-6xl text-white font-medium mb-6">Curated Ziyarah Experiences</h1>
+        <p class="text-ivory/60 font-light text-lg max-w-2xl mx-auto">Discover the rich spiritual heritage of Madinah with our deeply knowledgeable local guides.</p>
+    </header>
+
+    <!-- TOURS DETAILED -->
+    <section class="py-20 px-6 md:px-12 max-w-[90rem] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1627885542758-c6ce19d146bd?auto=format&fit=crop&w=800&q=80" class="h-64 w-full object-cover" alt="Mount Uhud">
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="font-playfair text-2xl text-ink font-medium mb-3">Mount Uhud</h3>
+                    <p class="text-ink/60 font-light mb-6 flex-1">A profound visit to the site of the Battle of Uhud. Stand before the mountain the Prophet ﷺ loved, and pay respects at the graves of the seventy martyrs, including Hamza ibn Abdul-Muttalib.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1590077553554-15a0c10cb39d?auto=format&fit=crop&w=800&q=80" class="h-64 w-full object-cover" alt="Masjid Quba">
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="font-playfair text-2xl text-ink font-medium mb-3">Masjid Quba</h3>
+                    <p class="text-ink/60 font-light mb-6 flex-1">The first mosque built in Islam. Our guides arrange visits ensuring a peaceful atmosphere, allowing you to pray two Rakahs here—which carries the reward of an Umrah.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 flex flex-col">
+                <img src="https://images.unsplash.com/photo-1572986237191-450f385c7d0f?auto=format&fit=crop&w=800&q=80" class="h-64 w-full object-cover" alt="The Seven Mosques">
+                <div class="p-8 flex-1 flex flex-col">
+                    <h3 class="font-playfair text-2xl text-ink font-medium mb-3">The Trench & Seven Mosques</h3>
+                    <p class="text-ink/60 font-light mb-6 flex-1">Explore the historical site of the Battle of Khandaq (The Trench). Understand the strategic defenses of early Madinah and visit the cluster of historic mosques built on the very sites where the Sahaba camped.</p>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="mt-16 text-center">
+            <a href="contact.html" class="inline-block bg-gold hover:bg-goldHover text-ink px-10 py-4 font-medium transition-colors duration-300 shadow-xl">Enquire About a Private Tour</a>
+        </div>
+    </section>
+
+    <!-- BRANDED FOOTER -->
+    <footer class="bg-ink pt-20 md:pt-32 pb-8 md:pb-12 px-6 md:px-12 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center mb-16 md:mb-24 flex flex-col items-center">
+            <img src="logo.png" alt="My Stay in Madinah Icon" class="h-16 md:h-20 w-auto object-contain mb-8 opacity-90 drop-shadow-lg" onerror="this.style.display='none'">
+            <h2 class="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-6 md:mb-8 leading-tight">Your spiritual journey deserves a peaceful stay.</h2>
+            <p class="text-white/50 font-light text-base md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto px-4">Skip the platform fees. Secure your premium room in Al-Aziziyyah today for the best guaranteed rate.</p>
+            <a href="contact.html" class="inline-block bg-gold hover:bg-white text-ink px-8 md:px-12 py-4 md:py-5 rounded-sm font-medium tracking-wide transition-all duration-500 shadow-xl text-base md:text-lg w-full sm:w-auto">Secure Your Room Directly</a>
+        </div>
+        <div class="max-w-[90rem] mx-auto flex flex-col md:flex-row justify-between items-center border-t border-white/10 pt-8 text-xs md:text-sm text-white/40 font-light gap-4 md:gap-0">
+            <p>&copy; 2026 My Stay in Madinah. All rights reserved.</p>
+            <div class="flex gap-6 md:gap-8"><a href="#" class="hover:text-gold transition-colors">Terms</a><a href="#" class="hover:text-gold transition-colors">Privacy</a><a href="contact.html" class="hover:text-gold transition-colors">Contact</a></div>
+        </div>
+    </footer>
+</body>
+</html>
