@@ -7,9 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: { extend: { colors: { ivory: '#F9F8F4', ink: '#09101A', gold: '#C5A059', goldHover: '#B08D4C' }, fontFamily: { playfair: ['"Playfair Display"', 'serif'], jost: ['"Jost"', 'sans-serif'] }, backgroundImage: { 'radial-glow': 'radial-gradient(circle at center, rgba(197, 160, 89, 0.15) 0%, transparent 70%)' } } }
-        }
+        tailwind.config = { theme: { extend: { colors: { ivory: '#F9F8F4', ink: '#09101A', gold: '#C5A059', goldHover: '#B08D4C' }, fontFamily: { playfair: ['"Playfair Display"', 'serif'], jost: ['"Jost"', 'sans-serif'] }, backgroundImage: { 'radial-glow': 'radial-gradient(circle at center, rgba(197, 160, 89, 0.15) 0%, transparent 70%)' } } } }
     </script>
     <style>
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -21,16 +19,15 @@
 </head>
 <body class="font-jost bg-ivory text-ink antialiased selection:bg-gold selection:text-white pt-16 lg:pt-0">
 
-    <!-- GLOBAL NAVIGATION WITH NEW ICON LOGO -->
+    <!-- GLOBAL NAVIGATION WITH NEW LOGOS & MOBILE MENU -->
     <nav class="fixed top-0 w-full z-[100] bg-ink/90 backdrop-blur-md border-b border-white/10 transition-all duration-300">
-        <div class="max-w-[90rem] mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
-            <!-- Brand Logo & Name -->
-            <a href="index.html" class="flex items-center gap-3 group">
-                <!-- Replace 'logo.png' with the actual filename of your exported logo -->
-                <img src="logo.png" alt="My Stay in Madinah Icon" class="h-8 md:h-10 w-auto object-contain transition-transform duration-500 group-hover:scale-105" onerror="this.style.display='none'">
-                <span class="text-gold font-playfair text-xl md:text-2xl font-semibold tracking-wide">My Stay in Madinah</span>
+        <div class="max-w-[90rem] mx-auto px-6 lg:px-12 py-4 flex justify-between items-center relative z-20">
+            <!-- Brand Logos (Icon + Text) -->
+            <a href="index.html" class="flex items-center gap-4 group">
+                <img src="icon-logo.png" alt="My Stay in Madinah Key Icon" class="h-8 md:h-11 w-auto object-contain transition-transform duration-500 group-hover:scale-105" onerror="this.style.display='none'">
+                <img src="text-logo.png" alt="My Stay in Madinah" class="h-4 md:h-5 w-auto object-contain hidden sm:block transition-opacity duration-500 group-hover:opacity-80" onerror="this.style.display='none'">
             </a>
-            
+            <!-- Desktop Menu -->
             <div class="hidden md:flex gap-8 items-center text-sm tracking-wide text-ivory/80">
                 <a href="index.html" class="text-gold transition-colors">Home</a>
                 <a href="rooms.html" class="hover:text-gold transition-colors">Rooms</a>
@@ -38,13 +35,23 @@
                 <a href="contact.html" class="hover:text-gold transition-colors">Contact</a>
                 <a href="contact.html" class="bg-gold hover:bg-white text-ink px-5 py-2 rounded-sm font-medium transition-all duration-300">Book Direct</a>
             </div>
-            <!-- Mobile Menu Icon -->
-            <button class="md:hidden text-gold"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-gold focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-ink/95 backdrop-blur-xl border-b border-white/10 flex-col items-center py-8 gap-6 text-ivory shadow-2xl z-10">
+            <a href="index.html" class="text-gold text-lg transition-colors">Home</a>
+            <a href="rooms.html" class="text-lg hover:text-gold transition-colors">Rooms</a>
+            <a href="tours.html" class="text-lg hover:text-gold transition-colors">Tours</a>
+            <a href="contact.html" class="text-lg hover:text-gold transition-colors">Contact</a>
+            <a href="contact.html" class="bg-gold hover:bg-white text-ink px-8 py-3 rounded-sm font-medium transition-all duration-300 mt-2">Book Direct</a>
         </div>
     </nav>
 
-    <!-- Sticky WhatsApp Widget -->
-    <a href="#" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-[0_10px_40px_rgba(37,211,102,0.4)] hover:scale-105 transition-transform duration-300 flex items-center justify-center group">
+    <!-- STICKY WHATSAPP WIDGET -->
+    <a href="https://wa.me/966500000000?text=As-salamu%20alaykum,%20I%20would%20like%20to%20inquire%20about%20booking%20a%20room." target="_blank" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-[0_10px_40px_rgba(37,211,102,0.4)] hover:scale-105 transition-transform duration-300 flex items-center justify-center group">
         <svg class="w-6 h-6 md:w-7 md:h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 .003 5.385.003 12.031c0 2.126.556 4.198 1.613 6.02L.03 24l6.105-1.602a11.968 11.968 0 0 0 5.896 1.542h.005c6.643 0 12.025-5.384 12.025-12.028C24.055 5.385 18.675 0 12.031 0zm-.005 21.954a9.982 9.982 0 0 1-5.09-1.39l-.365-.217-3.784.992.998-3.69-.237-.377a9.96 9.96 0 0 1-1.523-5.27C1.995 6.486 6.483 2 12.031 2c5.545 0 10.033 4.488 10.033 10.003 0 5.513-4.488 10-10.038 10h-.001zm5.505-7.519c-.302-.151-1.787-.882-2.064-.983-.277-.101-.48-.151-.681.151-.202.302-.78 1.034-.956 1.235-.177.202-.353.227-.655.076-1.574-.789-2.73-1.66-3.784-3.32-.177-.278.177-.278.756-1.41.076-.151.038-.278-.038-.428-.076-.151-.681-1.636-.932-2.24-.246-.59-.496-.51-.681-.52-.177-.01-.378-.01-.58-.01-.202 0-.529.076-.806.378-.277.302-1.058 1.034-1.058 2.518 0 1.484 1.084 2.92 1.235 3.12.151.202 2.116 3.224 5.127 4.524 1.965.848 2.704.899 3.484.75.78-.151 2.368-.968 2.704-1.902.336-.934.336-1.737.236-1.903-.101-.166-.378-.267-.68-.418z"/></svg>
     </a>
 
@@ -114,7 +121,6 @@
                 <p class="text-ink/60 font-light text-base md:text-lg max-w-xl mx-auto">Why paying a middleman doesn't make sense for your Ziyarah.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-0 border border-gray-100 rounded-2xl overflow-hidden shadow-xl md:shadow-2xl">
-                <!-- Platform Way -->
                 <div class="bg-gray-50 p-8 sm:p-10 md:p-14 border-b md:border-b-0 md:border-r border-gray-200">
                     <h3 class="font-playfair text-xl md:text-2xl text-ink/50 mb-6 md:mb-8 border-b border-gray-200 pb-4">The Platform Way</h3>
                     <ul class="space-y-6">
@@ -123,7 +129,6 @@
                         <li class="flex items-start gap-4 text-ink/70"><span class="text-red-400 font-bold mt-1">✕</span><div><strong class="block text-ink font-medium text-sm md:text-base">Inflated Seasonal Pricing</strong><span class="text-xs md:text-sm font-light">Algorithms double the price during peak seasons.</span></div></li>
                     </ul>
                 </div>
-                <!-- Direct Way -->
                 <div class="bg-ink p-8 sm:p-10 md:p-14">
                     <h3 class="font-playfair text-xl md:text-2xl text-gold mb-6 md:mb-8 border-b border-ink/50 pb-4">The Direct Way</h3>
                     <ul class="space-y-6">
@@ -136,7 +141,7 @@
         </div>
     </section>
 
-    <!-- LOCATION & CONNECTIVITY -->
+    <!-- LOCATION & MAP -->
     <section class="py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-12 bg-ivory">
         <div class="max-w-[90rem] mx-auto">
             <div class="mb-10 md:mb-12 max-w-2xl text-center md:text-left mx-auto md:mx-0">
@@ -152,38 +157,27 @@
                         <defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs>
                         <rect width="100%" height="100%" fill="url(#grid)" />
                         <g stroke="#C5A059" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M-100,200 Q300,300 60% 50% T1200,600" stroke-width="0.5" stroke-opacity="0.5"/>
-                            <path d="M200,-100 Q400,200 60% 50% T800,900" stroke-width="0.5" stroke-opacity="0.5"/>
-                            <path d="M-50,600 Q350,550 60% 50% T1000,-50" stroke-width="0.5" stroke-opacity="0.5"/>
-                            <circle cx="60%" cy="50%" r="100" stroke-width="0.3" stroke-dasharray="4 4" stroke-opacity="0.4"/>
-                            <circle cx="60%" cy="50%" r="200" stroke-width="0.3" stroke-dasharray="4 4" stroke-opacity="0.2"/>
-                            <circle cx="60%" cy="50%" r="350" stroke-width="0.3" stroke-dasharray="4 4" stroke-opacity="0.1"/>
+                            <path d="M-100,200 Q300,300 60% 50% T1200,600" stroke-width="0.5" stroke-opacity="0.5"/><path d="M200,-100 Q400,200 60% 50% T800,900" stroke-width="0.5" stroke-opacity="0.5"/><path d="M-50,600 Q350,550 60% 50% T1000,-50" stroke-width="0.5" stroke-opacity="0.5"/>
+                            <circle cx="60%" cy="50%" r="100" stroke-width="0.3" stroke-dasharray="4 4" stroke-opacity="0.4"/><circle cx="60%" cy="50%" r="200" stroke-width="0.3" stroke-dasharray="4 4" stroke-opacity="0.2"/><circle cx="60%" cy="50%" r="350" stroke-width="0.3" stroke-dasharray="4 4" stroke-opacity="0.1"/>
                         </g>
                         <path d="M25% 30% L60% 50%" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4 4" class="hidden md:block"/>
                         <path d="M25% 50% L60% 50%" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4 4" class="hidden md:block"/>
                         <path d="M25% 70% L60% 50%" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4 4" class="hidden md:block"/>
                     </svg>
-                    <!-- Glowing Main Node -->
+                    <!-- Main Node -->
                     <div class="absolute top-[50%] left-[50%] md:left-[60%] transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
                         <div class="w-5 h-5 md:w-6 md:h-6 bg-gold rounded-full shadow-[0_0_30px_rgba(197,160,89,1)] border-[3px] md:border-4 border-[#0A0F16] z-10 animate-pulse"></div>
                         <span class="text-white mt-2 md:mt-3 text-xs md:text-sm font-playfair tracking-wider whitespace-nowrap text-shadow">Al-Masjid an-Nabawi</span>
                     </div>
                 </div>
-
-                <!-- Overlay UI Panels -->
+                <!-- Map UI Overlay -->
                 <div class="relative md:absolute inset-y-0 left-0 w-full md:w-[400px] p-5 sm:p-6 md:p-10 flex flex-col justify-center gap-3 sm:gap-4 z-20 pointer-events-none bg-ink md:bg-transparent border-t border-white/10 md:border-none">
                     <div class="premium-glass bg-white/5 md:bg-ink/70 rounded-xl p-4 sm:p-5 transform transition-transform hover:scale-[1.02] pointer-events-auto cursor-default border border-white/10">
                         <div class="flex items-center gap-3 sm:gap-4">
-                            <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center border border-gold/40 flex-shrink-0">
-                                <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
-                            </div>
-                            <div>
-                                <p class="text-white font-medium text-sm md:text-base">My Stay in Madinah</p>
-                                <p class="text-gold text-xs mt-1">Al-Aziziyyah District</p>
-                            </div>
+                            <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center border border-gold/40 flex-shrink-0"><svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg></div>
+                            <div><p class="text-white font-medium text-sm md:text-base">My Stay in Madinah</p><p class="text-gold text-xs mt-1">Al-Aziziyyah District</p></div>
                         </div>
                     </div>
-                    
                     <div class="premium-glass bg-white/5 md:bg-ink/70 rounded-xl p-4 sm:p-5 flex items-center justify-between pointer-events-auto cursor-default group hover:bg-white/10 transition-colors border border-white/5 md:border-white/10">
                         <div class="flex items-center gap-3 sm:gap-4 text-white/50 group-hover:text-gold transition-colors">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"/><path d="M12 8a4 4 0 0 0-4 4v10h8V12a4 4 0 0 0-4-4Z"/><path d="M4 14v8"/><path d="M20 14v8"/><path d="M2 22h20"/><path d="M4 10a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2"/></svg>
@@ -191,7 +185,6 @@
                         </div>
                         <span class="text-gold text-[10px] sm:text-xs font-medium bg-gold/10 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">10 min drive</span>
                     </div>
-                    
                     <div class="premium-glass bg-white/5 md:bg-ink/70 rounded-xl p-4 sm:p-5 flex items-center justify-between pointer-events-auto cursor-default group hover:bg-white/10 transition-colors border border-white/5 md:border-white/10">
                         <div class="flex items-center gap-3 sm:gap-4 text-white/50 group-hover:text-gold transition-colors">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2.5-1.5 6-1 8 2 0-3 2.5-5 6-5 2.5 0 4.5 1.5 6 4-2 1-4 1.5-6 1-2-1.5-4-1-6 2-1 2-3 4-6 4-2 0-4-2-4-4 0-1.5 1-3 2-4Z"/></svg>
@@ -199,7 +192,6 @@
                         </div>
                         <span class="text-gold text-[10px] sm:text-xs font-medium bg-gold/10 px-2 sm:px-3 py-1 rounded-full whitespace-nowrap">15 min drive</span>
                     </div>
-
                     <div class="premium-glass bg-white/5 md:bg-ink/70 rounded-xl p-4 sm:p-5 flex items-center justify-between pointer-events-auto cursor-default group hover:bg-white/10 transition-colors border border-white/5 md:border-white/10">
                         <div class="flex items-center gap-3 sm:gap-4 text-white/50 group-hover:text-gold transition-colors">
                             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16"/><path d="M12 3v8"/><path d="M8 19l-2 3"/><path d="M16 19l2 3"/><path d="M2 22h20"/></svg>
@@ -217,63 +209,51 @@
         <div class="max-w-[90rem] mx-auto">
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 md:mb-16 gap-6">
                 <div class="max-w-2xl">
-                    <div class="inline-flex items-center gap-4 mb-4">
-                        <span class="h-[1px] w-8 md:w-12 bg-gold"></span><span class="text-gold tracking-[0.2em] text-[10px] md:text-xs uppercase font-medium">Curated Experiences</span>
-                    </div>
+                    <div class="inline-flex items-center gap-4 mb-4"><span class="h-[1px] w-8 md:w-12 bg-gold"></span><span class="text-gold tracking-[0.2em] text-[10px] md:text-xs uppercase font-medium">Curated Experiences</span></div>
                     <h2 class="font-playfair text-3xl sm:text-4xl lg:text-5xl font-semibold mb-4 md:mb-6 leading-tight text-white">Guided Tours of Sacred Madinah</h2>
-                    <p class="text-ivory/60 font-light text-base md:text-lg leading-relaxed">
-                        Beyond premium accommodation, we offer bespoke Ziyarah experiences. Journey through the Prophet's city with deeply knowledgeable local guides in absolute comfort.
-                    </p>
+                    <p class="text-ivory/60 font-light text-base md:text-lg leading-relaxed">Beyond premium accommodation, we offer bespoke Ziyarah experiences. Journey through the Prophet's city with deeply knowledgeable local guides in absolute comfort.</p>
                 </div>
                 <a href="tours.html" class="inline-block border-b border-gold text-gold hover:text-white hover:border-white transition-colors duration-300 pb-1 font-medium text-sm md:text-base whitespace-nowrap">Explore All Tours &rarr;</a>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <!-- Uhud (Mountainscape Image) -->
+                <!-- Tour 1 -->
                 <div class="group relative h-[400px] md:h-[480px] rounded-2xl overflow-hidden cursor-pointer border border-white/10 shadow-2xl">
                     <img src="https://images.unsplash.com/photo-1627885542758-c6ce19d146bd?auto=format&fit=crop&w=800&q=80" alt="Mount Uhud Location" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-[#09101A] via-[#09101A]/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <span class="text-gold text-[10px] md:text-xs font-semibold uppercase tracking-widest mb-2 block">The Martyrs' Valley</span>
                         <h3 class="font-playfair text-2xl md:text-3xl text-white mb-3">Mount Uhud</h3>
-                        <p class="text-white/70 font-light text-sm md:text-base leading-relaxed lg:transform lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-500">
-                            Walk the historic battlefield of Uhud. Pay respects at the Martyrs' Cemetery while our guides share profound insights.
-                        </p>
+                        <p class="text-white/70 font-light text-sm md:text-base leading-relaxed lg:transform lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-500">Walk the historic battlefield of Uhud. Pay respects at the Martyrs' Cemetery while our guides share profound insights.</p>
                     </div>
                 </div>
-                <!-- Quba (White Mosque Image) -->
+                <!-- Tour 2 -->
                 <div class="group relative h-[400px] md:h-[480px] rounded-2xl overflow-hidden cursor-pointer border border-white/10 shadow-2xl">
                     <img src="https://images.unsplash.com/photo-1590077553554-15a0c10cb39d?auto=format&fit=crop&w=800&q=80" alt="Masjid Quba Architecture" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-[#09101A] via-[#09101A]/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <span class="text-gold text-[10px] md:text-xs font-semibold uppercase tracking-widest mb-2 block">The First Mosque</span>
                         <h3 class="font-playfair text-2xl md:text-3xl text-white mb-3">Masjid Quba</h3>
-                        <p class="text-white/70 font-light text-sm md:text-base leading-relaxed lg:transform lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-500">
-                            Pray in the very first mosque built in Islam. Our curated tour ensures a serene visit away from peak crowds.
-                        </p>
+                        <p class="text-white/70 font-light text-sm md:text-base leading-relaxed lg:transform lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-500">Pray in the very first mosque built in Islam. Our curated tour ensures a serene visit away from peak crowds.</p>
                     </div>
                 </div>
-                <!-- Seven Mosques (Historic architecture) -->
+                <!-- Tour 3 -->
                 <div class="group relative h-[400px] md:h-[480px] rounded-2xl overflow-hidden cursor-pointer border border-white/10 shadow-2xl md:col-span-2 lg:col-span-1">
                     <img src="https://images.unsplash.com/photo-1572986237191-450f385c7d0f?auto=format&fit=crop&w=800&q=80" alt="Historic Mosques" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                     <div class="absolute inset-0 bg-gradient-to-t from-[#09101A] via-[#09101A]/60 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="absolute inset-0 p-8 flex flex-col justify-end">
                         <span class="text-gold text-[10px] md:text-xs font-semibold uppercase tracking-widest mb-2 block">Battle of Khandaq</span>
                         <h3 class="font-playfair text-2xl md:text-3xl text-white mb-3">The Seven Mosques</h3>
-                        <p class="text-white/70 font-light text-sm md:text-base leading-relaxed lg:transform lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-500">
-                            Explore the site of the Trench. Understand the strategic genius and spiritual resilience of the early Muslims.
-                        </p>
+                        <p class="text-white/70 font-light text-sm md:text-base leading-relaxed lg:transform lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 transition-all duration-500">Explore the site of the Trench. Understand the strategic genius and spiritual resilience of the early Muslims.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- GLOBAL SOCIAL PROOF -->
+    <!-- TESTIMONIALS -->
     <section class="py-16 md:py-24 bg-white overflow-hidden">
         <div class="max-w-[90rem] mx-auto px-6 md:px-12 mb-8 md:mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
             <div><h2 class="font-playfair text-3xl md:text-4xl text-ink font-semibold mb-2">Trusted Globally</h2><p class="text-ink/60 font-light text-sm md:text-base">Experiences from pilgrims around the world.</p></div>
-            <div class="hidden md:flex gap-2"><button class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-200 flex items-center justify-center text-ink hover:bg-ink hover:text-white transition-colors">→</button></div>
         </div>
         <div class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory gap-4 sm:gap-6 px-6 md:px-12 pb-10 w-full max-w-[100rem] mx-auto">
             <div class="snap-start shrink-0 w-[85vw] sm:w-[380px] md:w-[420px] bg-ivory p-6 sm:p-8 md:p-10 rounded-xl border border-gray-100 flex flex-col">
@@ -292,22 +272,35 @@
     </section>
 
     <!-- BRANDED FOOTER -->
-    <footer class="bg-ink pt-20 md:pt-32 pb-8 md:pb-12 px-6 md:px-12 border-t border-white/5">
+    <footer class="bg-ink pt-20 md:pt-32 pb-8 md:pb-12 px-6 md:px-12 border-t border-white/5 mt-12">
         <div class="max-w-4xl mx-auto text-center mb-16 md:mb-24 flex flex-col items-center">
-            
-            <!-- Icon Logo in Footer -->
-            <img src="logo.png" alt="My Stay in Madinah Icon" class="h-16 md:h-20 w-auto object-contain mb-8 opacity-90 drop-shadow-lg" onerror="this.style.display='none'">
-            
+            <!-- Stacked Logos -->
+            <a href="index.html" class="flex flex-col items-center group mb-10 md:mb-12 cursor-pointer">
+                <img src="icon-logo.png" alt="My Stay in Madinah Key Icon" class="h-16 md:h-24 w-auto object-contain mb-5 opacity-90 transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl" onerror="this.style.display='none'">
+                <img src="text-logo.png" alt="My Stay in Madinah" class="h-5 md:h-7 w-auto object-contain opacity-90 drop-shadow-lg" onerror="this.style.display='none'">
+            </a>
             <h2 class="font-playfair text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-medium mb-6 md:mb-8 leading-tight">Your spiritual journey deserves a peaceful stay.</h2>
             <p class="text-white/50 font-light text-base md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto px-4">Skip the platform fees. Secure your premium room in Al-Aziziyyah today for the best guaranteed rate.</p>
             <a href="contact.html" class="inline-block bg-gold hover:bg-white text-ink px-8 md:px-12 py-4 md:py-5 rounded-sm font-medium tracking-wide transition-all duration-500 shadow-xl text-base md:text-lg w-full sm:w-auto">Secure Your Room Directly</a>
         </div>
         <div class="max-w-[90rem] mx-auto flex flex-col md:flex-row justify-between items-center border-t border-white/10 pt-8 text-xs md:text-sm text-white/40 font-light gap-4 md:gap-0">
             <p>&copy; 2026 My Stay in Madinah. All rights reserved.</p>
-            <div class="flex gap-6 md:gap-8">
-                <a href="#" class="hover:text-gold transition-colors">Terms</a><a href="#" class="hover:text-gold transition-colors">Privacy</a><a href="contact.html" class="hover:text-gold transition-colors">Contact</a>
-            </div>
+            <div class="flex gap-6 md:gap-8"><a href="#" class="hover:text-gold transition-colors">Terms</a><a href="#" class="hover:text-gold transition-colors">Privacy</a><a href="contact.html" class="hover:text-gold transition-colors">Contact</a></div>
         </div>
     </footer>
+
+    <!-- MOBILE MENU SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if(btn && menu) {
+                btn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                    menu.classList.toggle('flex');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
